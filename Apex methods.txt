@@ -1,0 +1,102 @@
+public class CustomController {
+    private final Account account;
+ 
+    public CustomController() {
+        account = [SELECT Id, Name, Site FROM Account
+                   WHERE Id = :ApexPages.currentPage().getParameters().get('id')];
+    }
+ 
+    public Account getAccount() {
+        return account;
+    }
+ 
+    public PageReference save() {
+        update account;
+        return null;
+    }
+}
+-------------------------------------------------------------------------------------
+global class FutureMethodRecordProcessing {
+    @future
+    public static void processRecords(List<ID> recordIds){   
+    // Get those records based on the IDs
+    List<Account> accts = [SELECT Name FROM Account WHERE Id IN :recordIds];
+    // Process records
+    }
+}
+-----------------------------------------------------------------------------
+global class FutureMethodExample {
+    @future(callout=true)
+    public static void getStockQuotes(String acctName){
+        // Perform a callout to an external service
+    }
+}
+-----------------------------------------------------------------------------
+public class AccountAction {
+    @InvocableMethod(label='Update Account' description='Update the list of accounts.')
+    public static void updateAccounts(List<Id> ids) {
+        
+    }
+}
+-------------------------------------------------------------------------------
+@RemoteAction //the function to be called in remote action should use this annotation
+    global static list<Contact> getcon() {
+        //function should be static and global else it will throw error
+        list<Contact> con1 = [SELECT id,name FROM contact limit 5];
+        if(con1!=null && !con1.isEmpty()){        
+            return con1;        
+        }else{        
+            return  new list<contact>();        
+        }
+    }
+------------------------------------------------------------------------------------
+public with sharing class SimpleServerSideController {
+    //Use @AuraEnabled to enable client- and server-side access to the method
+    @AuraEnabled
+    public static String serverEcho(String firstName) {
+        return ('Hello from the server, ' + firstName);
+    }
+}
+-------------------------------------------------------------------------------------
+public with sharing class ContactController {
+    @AuraEnabled(cacheable=true)
+    public static List<Contact> getContactList() {
+        return [SELECT Id,Phone, Email, Picture__c FROM Contact WHERE Picture__c != null LIMIT 10];
+    }
+}
+---------------------------------------------------------------------------------------
+public class QueueableExample implements Queueable {
+    public void execute(QueueableContext context) {
+        Account acc = new Account(Name='Biswajeet');
+        Insert acc;        
+    }
+}
+ID jobID = System.enqueueJob(new AsyncExecutionExample());
+------------------------------------------------------------------------------
+global class MyBatchClass implements Database.Batchable<sObject> {
+    global (Database.QueryLocator | Iterable<sObject>) start(Database.BatchableContext bc) {
+        // collect the batches of records or objects to be passed to execute
+    }
+    global void execute(Database.BatchableContext bc, List<P> records){
+        // process each batch of records
+    }    
+    global void finish(Database.BatchableContext bc){
+        // execute any post-processing operations
+    }    
+}
+MyBatchClass myBatchObject = new MyBatchClass(); 
+Id batchId = Database.executeBatch(myBatchObject,100);
+-------------------------------------------------------------------------------
+global class SampleBatchScheduler implements Schedulable {
+    // Execute at regular intervals
+    global void execute(SchedulableContext ctx){
+      String soql = 'SELECT Id, Name FROM Account';
+      MyBatchClass batch = new MyBatchClass(soql);
+      Database.executebatch(batch, 200);
+    }
+}
+
+SampleBatchScheduler m = new SampleBatchScheduler();
+String sch = '20 30 8 10 2 ?';
+String jobID = system.schedule('SampleBatchScheduler Job', sch, m);
+---------------------------------------------------------------------------------

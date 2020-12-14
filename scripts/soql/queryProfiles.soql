@@ -1,0 +1,1 @@
+SELECT Id FROM profile WHERE UserLicense.Name LIKE '%Chatter Free%' LIMIT 1

@@ -1,0 +1,45 @@
+[
+  {
+    "attributes": {
+      "type": "Driver__c"
+    },
+    "Name": "Lewis Hamilton",
+    "DriverId__c": "44",
+    "Nationality__c": "British",
+    "TwitterHandle__c": "lewistwitter"
+  },
+  {
+    "attributes": {
+      "type": "Season__c"
+    },
+    "Name": "2013",
+    "Year__c": "2013"
+  },
+  {
+    "attributes": {
+      "type": "Race__c"
+    },
+    "Name": "Spain",
+    "Unique_Key__c": "2013-1",
+    "Season__r": {
+      "Year__c": "2013"
+    }
+  },
+  {
+    "attributes": {
+      "type": "Contestant__c"
+    },
+    "Race__r": {
+      "Unique_Key__c": "2013-1"
+    },
+    "Driver__r": {
+      "TwitterHandle__c": "lewistwitter"
+    },
+    "RacePosition__c": null,
+    "ChampionshipPoints__c": 44,
+    "DNF__c": false,
+    "Qualification1LapTime__c": 123,
+    "Qualification2LapTime__c": 124,
+    "Qualification3LapTime__c": 125
+  }
+]

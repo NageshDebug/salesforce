@@ -1,0 +1,23 @@
+String parentObjectName = 'Opportunity';  
+Map<string,string> objectRelationshipMap = new Map<string,string>();
+Map<String, Schema.SObjectType> schemaMap = Schema.getGlobalDescribe();
+for(String ss1: schemaMap.keyset()){
+    Schema.SObjectType objToken=schemaMap.get(ss1);
+    if(ss1.equalsignorecase(parentObjectName)){
+        //find details about sobject
+        Schema.DescribeSObjectResult objDescribe=objToken.getdescribe();
+        List<Schema.ChildRelationship> childRelationshipList = objDescribe.getChildRelationships();
+        //system.debug('******childRelationshipList.size():'+childRelationshipList.size());
+        for(Schema.ChildRelationship ss:childRelationshipList){
+            string RelationshipName=ss.getRelationshipName();
+			string childObjectName = string.valueof(ss.getChildSObject());
+			string childFieldToken = string.valueof(ss.getField());
+			//system.debug('*********childFieldToken:'+ childFieldToken);
+			system.debug('*********childObjectName:'+childObjectName); 
+			//system.debug('*********RelationshipName:'+RelationshipName);
+			objectRelationshipMap.put(childObjectName+'.'+childFieldToken,RelationshipName);
+        }
+    }
+}
+system.debug('***objectRelationshipMap.size():'+objectRelationshipMap.size());
+system.debug('***objectRelationshipMap:'+objectRelationshipMap);

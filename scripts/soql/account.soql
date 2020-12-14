@@ -1,0 +1,4 @@
+SELECT ProductCode, Product2Id, Name, Quantity, TotalPrice, Id
+  FROM OpportunityLineItem
+  ORDER BY OpportunityId
+  LIMIT 5

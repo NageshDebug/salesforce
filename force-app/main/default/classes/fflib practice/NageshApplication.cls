@@ -1,0 +1,3 @@
+public with sharing class NageshApplication {
+  public static final fflib_Application.UnitOfWorkFactory UnitOfWork = new fflib_Application.UnitOfWorkFactory(new List<SObjectType>{Opportunity.SObjectType, Product2.SObjectType, Pricebook2.SObjectType, PricebookEntry.SObjectType, OpportunityLineItem.SObjectType, Driver__c.SObjectType, Season__c.SObjectType, Race__c.SObjectType, Contestant__c.SObjectType });
+}
