@@ -1,4 +1,4 @@
-SELECT ProductCode, Product2Id, Name, Quantity, TotalPrice, Id
-  FROM OpportunityLineItem
-  ORDER BY OpportunityId
+SELECT Id, Name, Type, Phone, AccountNumber, Industry, Account_ExtId__c
+  FROM Account
+  ORDER BY Name
   LIMIT 5
