@@ -216,6 +216,41 @@
 	
 	This process enables you to not only start tests asynchronously but also schedule your tests to execute at specific times by using the Apex scheduler.
 
+	Run tests in Developer Console > Test > New Run:
+	You can also set 'number of failures allowed' and 'skip code coverage' in Settings.
+	You can set the test to always run asynchronously by checking 'Always Run Asynchronously' in Developer Console > Test > Always Run Asynchronously.
+	
+	Test suite can be created if group of tests needed to run together frequently, saving time of selecting each test manually.
+	Test Suite can be created in Developer Console > Test > New Suite.
+	Test Suite can be run in Developer Console > Test > New Suite Run.
+	Test Suite can be managed in Developer Console > Test > Suite Manager.
+	Test Suite Manager can create New Suite, Rename Suite, Edit Suite, and Delete Suite.
+	
+
+	Code coverage can be skipped from Apex Text Execution page and from Developer Console in settings after selecting tests to run, this option is helpful if developers want faster feedback on execution result status rather than code coverage.
+	
+	Other testing tools and available options:
+	TESTING TOOL											AVAILABLE OPTIONS
+	-------------------------------------------------------------------------------------
+	Apex Text Execution from Setup							- Store Only Aggregated Code Coverage
+															- Disable Parallel Apex Testing
+															- Independent Auto-Number Sequence
+
+
+	Developer Console										- Always run asynchronously
+															- Number of failures allowed
+															- Create/run test suite
+
+
+	Force.com IDE											- Create/run test suite
+
+
+	SOAP API												-Run test synchronously using runTests() from SOAP API
+
+
+	Tooling REST API										- Run test synchronously and asynchronously by calling the following endpoints:
+															  /runTestsAsynchronous/ and /runTestsSynchronous/
+
 30. As the system grows, you may notice that diving into the logs you will see the ‘running after update trigger’ several times in one context, possible breaking if it loops too many times. 
 	This can be resolved with placing a static flag to allow only one execution to occur in a transaction, since static variable persist throughout a single transaction.
 
@@ -274,3 +309,84 @@
 	Is your test class dependent on data or custom settings that only exist in your sandbox?
 	Do you have extra classes or code in production? This can even be in the form of installed packages, etc.
 	Test coverage is calculated based on the total number of tested Apex statements (or lines) divided by the total number of Apex statements in your organization.
+
+34. @isTest(isParallel=true) annotation in Salesforce
+	Use the @isTest(isParallel=true) annotation to indicate test classes that can run in parallel and aren’t restricted by the default limits on the number of concurrent tests. This makes the execution of test classes more efficient, because more tests can be run in parallel.
+
+	This annotation overrides the default settings that disable parallel testing. A test class that doesn’t have this annotation is restricted by the default limits on the number of concurrent tests.
+
+	Tests that are started from the Salesforce user interface (including the Developer Console) run in parallel. Parallel test execution can speed up test run time. Sometimes, parallel test execution results in data contention issues, and you can turn off parallel execution in those cases. In particular, data contention issues and UNABLE_TO_LOCK_ROW errors might occur in the following cases:
+
+	1. When tests update the same records at the same time. Updating the same records typically occurs when tests don’t create their own data and turn off data isolation to access the organization’s data.
+	   i.e if own test data is not created, tests may update the same records during parallel test execution.
+	2. When a deadlock occurs in tests that are running in parallel and that try to create records with duplicate index field values. A deadlock occurs when two running tests are waiting for each other to roll back data, which happens if two tests insert records with the same unique index field values in different orders.
+
+36. A fantastic new feature in Summer ’17 release of Salesforce now allows you to define which unit tests can safely be run in parallel!
+
+	If you’ve disabled running parallel unit testing in your Salesforce org because of issues with concurrency (i.e. UNABLE_TO_LOCK_ROW exception) then this update is for you! You can still keep running of unit tests in parallel disabled, but you can now optionally indicate which unit tests can be run in parallel.
+
+	To do this, modify the annotation on your unit tests to include the following new parameter.
+				@isTest(isParallel=true)
+	This should drastically speed up running of your unit tests in your Salesforce org! 
+
+
+37. Resolving Unable to Lock Row Issue in Test Class
+	While running all test classes we were encountering an issue of UNABLE_TO_LOCK_ROW.
+
+	
+	Reason:
+	Tests that are started from the Salesforce user interface (including the Developer Console) run in parallel. Parallel test execution can speed up test run time. Sometimes, parallel test execution results in data contention issues and UNABLE_TO_LOCK_ROW error occur.
+	When a deadlock occurs in tests that are running in parallel and that try to create records with duplicate index field values. A deadlock occurs when two running tests are waiting for each other to roll back data. Such a wait can happen if two tests insert records with the same unique index field values in different orders.
+	
+	It seems that multiple test methods were running at the same time (because of random behavior of test methods) and trying to update the same records in custom setting thereby causing this issue. 
+	
+	Solution: 
+	To overcome this issue, we disabled the parallel execution of Test classes/methods and this solved our issue.
+
+
+38. How to disable Parallel Apex Testing in Salesforce?
+	1. Go to Apex Test Execution.
+	2. Click Options.
+	3. Select Disable Parallel Apex Testing and click Ok button.
+
+39. Test.setFixedSearchResults() method creates a defined set of record Ids to be returned any time a test method executes a SOSL query. It can be called multiple times within a single test method to change what data is returned each time.
+
+40. Options for @isTest annotation:
+	@isTest(SeeAllData=true) - allow test class to see all records in org
+	@isTest(isParallel=true) - allow test class to run in parallel (override the default setting and not restricted by default limits of concurrent tests)
+	@isTest(OnInstall=true) - allow specifying which test class are executed during package installation
+
+
+41. Apex Test classes fails to run on Force.com platform
+	Problem: Apex Test Class run fails with the following error message “Could not run tests on class <classId>”. This apex test had passed sometime back, but now it fails all of a sudden.
+
+	Diagnosis: This issue usually occurs when the platform is overloaded with its memory. 
+	An obvious behavior shown by the platform while running test classes at this time is by showing the error “could not run test on class” and fails the test immediately.
+
+	This is a known issue which has been fixed in Winter’ 14 Patch 12.0.
+
+	Reproduction Steps
+		1) Go To Develop | Apex Classes and click Run All Tests
+		2) The Result column for some classes may show “Could not run tests on class <classId>”
+			Same error is returned if the affected classes are run individually.
+
+	Workaround No.1
+	In some cases, below configuration has been used as a workaround:
+	a) Go to Setup | Develop | Apex Test Execution
+	b) Click Options
+	c) Uncheck “Store Only Aggregated Code Coverage” AND check “Disable Parallel Apex Testing”
+	Now, try to execute your test class.
+
+	Workaround No.2
+	In some cases, waiting for some time and trying to run apex test class will work.
+
+	Workaround No.3
+	Navigate to Develop –> Apex Classes and
+	Click “Compile all classes”
+	Then click “Estimate your organization’s code coverage”
+	And finally, click Run All Tests
+	Now, try to execute your test class.
+
+	Workaround No.4
+	If the workaround no.1, no.2 and no.3 do not work at all, it’s worth opening a help desk case with Salesforce. Click on “help” after logging in your organisation > Click on “Contact Support” > Now click “Open a Case”
+
