@@ -4,4 +4,6 @@
 //MixedDMLError_Solution.insertUserWithAccount();
 //Realtime_MixedDMLError.insertContactAndUserWithPermissioNSet();
 
-System.enqueueJob(new Example());
+//System.enqueueJob(new Example());
+
+NestedCallouts.createPostAndGetPost();
