@@ -1,0 +1,276 @@
+1. Test class must have assertions.
+    If needed we can develop custom assertions based on the requirements.
+	Try to avoid hard-coded values in the test classes including in the Assertion statements to compare values.
+	
+	Remove any Test Methods That Don’t Have Asserts and Aren’t Contributing to Code Coverage
+	If a test isn’t contributing anything to your org, there’s absolutely no point in having the test. I recommend removing any test that isn’t contributing because it’s just wasting time during deployments and when doing maintenance.
+2. usage of startTest() and stopTest()
+    startTest() resets the DML,CPU and other governor limits
+	stopTest() ensure asynchronous code to complete
+	
+	Test.startTest() and Test.stopTest() maintains fresh set of governor limits. Assume that you are consuming 99 SOQL queries outside of Test.startTest() and Test.stopTest() then if you include any 
+	SOQL inside of Test.startTest() and Test.stopTest() count will start from 1.
+	
+	Per testMethod we can use Test.startTest() and Test.stopTest() only for one time.
+	
+	To execute asynchronous methods synchronously we can call those methods from inside of Test.startTest() and Test.stopTest().
+
+3. Positive Tests (Happy Path)
+	We should not focus on the  percentage of code coverage ,we should make sure that every use case should covered including positive, negative,bulk and single record 
+4. Negative Test cases
+    Negative tests prove that our code properly handles exceptions and errors
+5. User Tests
+   As apex runs in system mode so the permission and record sharing are not taken into account. So we need to use system.runAs to enforce record sharing .
+   System.runAs will not enforce user permission or field level permission .
+   Need to cover both positive and Negative scenarios
+   
+    Don't overuse System.RunAs. Every test to runAs count against the total number of DML issued in the process .
+
+	From seeing thousands of tests running over the years, I’ve noticed that test methods with System.RunAs seem to execute slightly slower than methods without. If your organization has more than a thousand tests this can really start to add up if your company is doing frequent deployments.
+	
+	To avoid MIXED-DML-OPERATION error we can include DML statements inside of system.runAs(), still the error persists keep DML statements inside of Test.startTest() and Test.stopTest().
+6. Test exceptions (especially Governor Limits) using boolean variable and try-catch blocks
+7. Data setup for test cases
+	We should not depend on the existing data in the database. We should create the test data for all the possible scenarios. 
+	Note: Profiles and recordTypes cannot be created programmatically, we can query from the database. For the remaining objects including users we should create the test data.
+   1. Inside every test method (Bad practice)
+   2. Inside test setup method (@testsetup) - we can use this only for the particular test class
+   3. Create separate class marked with @isTest and setup the data => This class is useful when multiple classes are using same data and avoid duplicate code, increase reusability & increase performance of the test case.  Troubleshooting the test failures, fixing test data and refactoring is easy.
+   4. Accessing static resource test records in test class e,g List<Account> accList=Test.loadData(Account,SobjectType,'ResourceName').
+   5. we can use mocking instead of data setup => Only for Unit testing. But not for Integration testing. 
+                                               => Useful to mock HTTP callouts, I/O operations.
+											   => Creating one or more static resources containing test responses and using the appropriate built-in class — StaticResourceCalloutMock or      MultiStaticResourceCalloutMock — to specify the resource(s) to use in testing.
+											   =>Implementing one of two new interfaces: HttpCalloutMock, for HTTP (REST) callouts, or WebServiceMock, for Web Service (SOAP) callouts
+											      The above interfaces can handle that just fine... as long as you don't need to use the same endpoint more than once AND expect different results.
+
+											   => need to create multicallout class using HttpCalloutMock interface to mock nested callouts or multiple callouts.
+   6. we can use Stubbing instead of Mocking => System.StubProvider
+8. Always build own data (never use seeAllData=true)
+   
+   Whenever possible, you should create test data for each test. You can disable this restriction by annotating your test class or test method with the @IsTest(SeeAllData=false) annotation.
+   
+   Note that you cannot use @testSetup in combination with @isTest(SeeAllData=true) as test data cannot be isolated from real data during test execution.
+
+   Tools to make it faster: TestFactory
+   public with sharing class TestFactory{
+	public static List<Account> createAccounts(Integer count, Boolean performDML){
+		List<Account> accountList = new List<Account>();
+		for(Integer index=0;index<count;index++){
+			Account acct = new Account(Name='Nagesh'+index, BillingCity='SanJose',Industry='Agriculture');
+			accountList.add(acct);
+		}
+		--------------------------
+		|if(performDML){		 |
+		|	insert accountList;	 |
+		|}						 |
+		--------------------------
+		return accountList;
+	}
+   }
+9. Single Action -To verify that the the single record produces the correct an expected result .
+   Bulk action -Any apex record trigger ,class or extension must be invoked for 1-200 records .
+   Positive behavior : Test every expected behavior occurs through every expected permutation , i,e user filled out every correctly data and not go past the limit .
+   Negative Testcase :-Not to add future date , Not to specify negative amount.
+                       Always try to pass a null value for each method. This is the area where most of the programs fail unnoticedly.
+10. Group test cases by test suites
+11. Mocking through APEX Mocks(Integration Vs Unit Testing)
+	use mocks to insert objects whenever that object is not critical to test 
+	Mock anything we have in the service layer
+	Use interfaces and write unit test with a mock implementation (Example: Mock HTTP response for callouts)
+	Best practice: 1. write small methods developments for easy testing. It is not good to keep all business logic inside single method. even we can't reuse it or can't test properly.
+	               2. Keep your methods not more than 20 lines.
+				   3. Prefer method arguments as objects instead of primitives
+	Advantages: 1. Since we can mock the CRUD operations, salesforce Object Record life cycle will not excute(avoiding validations, workflow rules and triggers as well). So, the test execution time is very minimal. So it is very helpful in deployment activities.
+				2. No need to think about governor limits while executing the test cases.
+12.  Don't insert or query unless you have to. we can often test with objects in memory.
+    Reason: First system performs the CRUD operation and again it reverts the transaction for each method. while performing the CRUD operation, it needs to follows the entire lifecycle. thats means
+	         system will validate validation rules, work flow rules, process builder rules, flows, Before and after Triggers etc...
+			 So, it is very costly process. It is not best practice for higher deployments.
+			 
+	During deployment, choose Run specific test option to execute the respective test classes only there by avoiding unnecessary errors from irrelevant test classes
+13. What happens to all our test cases 
+	1. when a new field is required?
+	2. When the picklist values re-factored?
+	3. When the field marked as dependent picklist?
+	4. when the data type of field needs to change?
+	5. when the fields need to delete?
+	6. When the Master detail relationship is created in the object?
+	7. When validation rule is created/updated?
+	8. When we revoked the permissions from profile or permissionsets?
+	9. when we updated the sharing rules?
+	10. when we updated the workflow rules, procesbuilder or flows etc...
+	11. when we changed the formulas in the formula fields?
+	     And many more...........
+
+14. Testing advantage with dependency injection are:
+	Your code is clean and more readable.
+	Codes are loosely coupled.
+	Code can be easily testable with different mock implementation.
+	DI does not require any changes in code behavior it can be applied to legacy code as refactoring.
+	DI makes it possible to eliminate, or at least reduce unnecessary dependencies.
+	DI allows concurrent or independent development.
+	Reduced module complexity
+	
+15. The benefits of stubbing
+	Complex classes which call other layers in the application requires lots of test data setup. You end up having to test other areas of the application as part of your tests, so they aren’t really unit tests.
+	Different scenarios to be tested are difficult to recreate either due to complex test data setup or very difficult to produce.
+	Speed. The stubbing API allows you to avoid creating test data in the database, which ultimately is way faster.
+	Avoid having to use ugly Test.isRunningTest() statements within your production code.
+	Be aware of the limitations!
+
+	When using the stub API ensure you pay attention to the following limitations which states in the Salesforce documentation:
+		The object being mocked must be in the same namespace as the call
+		to the Test.createStub() method. However, the implementation of the
+		StubProvider interface can be in another namespace.
+		You can’t mock the following Apex elements.
+		Static methods (including future methods)
+		Private methods
+		Properties (getters and setters)
+		Triggers
+		Inner classes
+		System types
+		Classes that implement the Batchable interface
+		Classes that have only private constructors
+		Iterators can’t be used as return types or parameter types.
+
+16. Where can i find the debug logs from test classes? 
+    Method-1: 
+	   Step-1: Go to Setup -> Debug -> Apex Test Execution and inspecting the test run to find email of the user
+	           This will look like this: Test run: yyyy-mm-dd hh:MM:ss, user@organization.com (n class(es))
+	   Step-2: Go to Set -> Monitoring -> Debug Logs add the user who has the user@organization.com email to monitored users
+	           And make sure Apex Debug log level should be "DUBUG"
+	Method-2: Go to Setup ->Developer -> Apex Test Execution -> Select Tests -> Pick the test class you want to see the debug logs and click run
+	          Go to Developer console and verified the logs under the Log section.
+	Method-3: using vscode
+	          sfdx force:apex:log:tail --color | grep USER_DEBUG
+	
+	
+17. Five Ways to Run All Unit Tests
+	1. Apex Test Execution UI
+	2. Apex Classes “Run All Tests”
+	3. Use the Developer Console
+	4. Vs Code Test or VS SFDX commands or from Command Prompt
+	5. SFDX commands
+	Note-1: Run All Tests. This option runs all tests in your Salesforce org, including third-party tests from managed packages.
+	Note-2: Run Specified Tests. This option allows you to determine which tests you specifically want to run.
+	
+	
+18. Get Code coverage report out of salesforce
+	1) Log in to Workbench. Choose your environment and API Version.
+    2) Navigate to SOQL Query.
+	3) For Object, choose “ApexTestResult.”
+	4) Choose the fields you want to pull in. (I generally choose everything except count(), as that is an aggregate field.)
+	5) You can opt to pull all results if you’ve recently cleared your test results before running, or you can filter to a certain date or only pull the failures. Below are some examples.
+		Filter By: TestTimeStamp = TODAY
+		Filter By: Outcome = “Fail” OR “CompileFail”
+	6) You can also sort the records and limit the number using the remaining available options.
+	7) Finally, you can View As “List” to see the results in the web page. Once you’re ready to download, you can View As “Bulk CSV” and query.
+	   When the query is successful, you can download the results and open as a spreadsheet.
+	
+19. SOQL to find code coverage in Salesforce
+	Query:SELECT ApexClassOrTrigger.Name, NumLinesCovered, NumLinesUncovered FROM ApexCodeCoverageAggregate ORDER BY ApexClassOrTrigger.Name ASC
+
+20. Performing DML Before Mock Callouts
+	use Test.startTest and Test.stopTest statements to allow DML operations to be performed in a test method before mock callouts. 
+	
+21. UNKNOWN_EXCEPTION : Failed to run tests synchronously.: admin operation already in progress Salesforce.
+	Either you can give some time and try again ,Since its environment is in update progress,(Or)
+	Go To --> Developer Console --> Test [Tab] --> Select "Always Run Asynchronously"
+	
+	
+22. Ordering of test methods execution is bad practice in Unit testing. But it is required in Test Suites and Integration testing.
+    But some times ordering is needed to resolve modules dependency 
+	Ex-1: Login module test executes before transaction module test cases.
+	Ex-2: payment test cases should execute first before executing sending email test cases
+	Ex-3: Some times ordering helps to avoid deadlock situations, if test cases hit databases.
+	
+23. The testing method does not takes arguments, does not commit data to the database, and does not send emails with the testMethod keyword.
+
+24. Users, Profiles, Organizations, AsyncApexjob, Corntrigger, RecordType, ApexClass, ApexComponent, ApexPage can be accessed without(see AllData = true).
+
+25. You can use the @TestVisible annotation to access private members and methods inside the test class. 
+
+26. Test classes can be either private or public. If you’re using a test class for unit testing only, declare it as private. Public test classes are typically used for test data factory classes.   
+
+27. Classes with @isTest annotation can't be a interface or enum .Test method code can't be invoked by non test request .
+
+28. We can run unit test by using Salesforce Standard UI,Force.com IDE ,Console ,API.
+
+29. We can use a variety of tools to run one or multiple unit tests:
+	Salesforce User Interface
+	Force.com IDE/VS Code
+	Developer Console
+	Soap and REST API
+	Third-party IDEs
+	SFDX CLI
+			force:apex:test:report              // display test results
+			force:apex:test:run                 // invoke Apex tests
+
+	A few additional notes (gathered from the Apex Developer Guide):
+
+	Apex tests that are started from the Salesforce user interface (including the Developer Console) run asynchronously and in parallel.
+	
+	Apex tests that run as part of a deployment always run synchronously and serially. You can use the runTests() call from the SOAP API to run tests synchronously.
+	You can also run tests using the Tooling REST API. Use the /runTestsAsynchronous/ and /runTestsSynchronous/ endpoints to run tests asynchronously or synchronously.
+	You can also run tests asynchronously using ApexTestQueueItem and ApexTestResult
+	
+	This process enables you to not only start tests asynchronously but also schedule your tests to execute at specific times by using the Apex scheduler.
+
+30. As the system grows, you may notice that diving into the logs you will see the ‘running after update trigger’ several times in one context, possible breaking if it loops too many times. 
+	This can be resolved with placing a static flag to allow only one execution to occur in a transaction, since static variable persist throughout a single transaction.
+
+	static public Boolean firstUpdate = true;
+	public override void afterUpdate(Map<Id, SObject> oldSObjectMap) {
+		if(firstUpdate){
+			firstUpdate = false;
+			system.debug(‘running after update trigger’);
+			AccountService.doSomeProcess(this.records);
+			AccountService.doSomeOtherProcess(this.records);
+			...
+		}
+	}
+	These little tricks will help you solve recurring issues that you will experience when writing good test coverage and avoiding future issues.
+
+
+31. How actual calculation is done in PROD(Salesforce Org)?
+	It can be explained with the below example values. Let us assume that we are sending the below files to the PROD with the code coverage values like,
+
+	Example#1
+	---------
+	TestClass1
+	ApexClass1 -- 75%
+	TestClass2
+	ApexClass2 -- 50%
+	TestClass3
+	ApexClass3 -- 80%
+	
+	The average of all the three classes will be taken,
+	75 + 50 + 80 = 205/3 = 68%
+	
+	Result: ERROR! These class won't be sent to PROD(Salesforce Org).
+	
+	Example#2
+	-----------
+	TestClass1
+	ApexClass1 -- 90%
+	TestClass2
+	ApexClass2 -- 50%
+	TestClass3
+	ApexClass3 -- 90%
+	
+	The average of all the three classes will be taken,
+	90 + 50 + 90 = 230/3 = 76%
+	
+	Result: Salesforce will send all the code to PROD(Salesforce Org).
+	
+	Note: The average of classes in the package will be taken into consideration by Salesforce to move the content or code into the PROD(Salesforce Org).
+
+32. Test coverage results can differ when tests use the @isTest(SeeAllData=true) annotation, depending on the availability of data.
+
+
+33. Salesforce production server shows less(50%) code coverage than sandbox(100%)?
+	There could be a couple of reasons for this:
+
+	Is your test class dependent on data or custom settings that only exist in your sandbox?
+	Do you have extra classes or code in production? This can even be in the form of installed packages, etc.
+	Test coverage is calculated based on the total number of tested Apex statements (or lines) divided by the total number of Apex statements in your organization.
