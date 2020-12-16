@@ -1,4 +1,4 @@
-public abstract class CalloutHandlerUtil {
+public abstract class CalloutHandlerUtil implements CalloutHandler{
   public String oauthToken;
   public Map<Boolean, String> apiResponse;
   private static Boolean isRunningInSandbox;
