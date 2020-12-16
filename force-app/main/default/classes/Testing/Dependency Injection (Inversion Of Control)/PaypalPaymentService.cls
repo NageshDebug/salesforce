@@ -6,28 +6,28 @@ public with sharing class PaypalPaymentService implements PaymentService {
     this.paymentRepository = paymentRepository;
   }
 
-  public Map<Boolean, String> createAgreement(List<Opportunity> opportunities) {
+  public Map<String, OpportunityResponse> createAgreement(List<OpportunityRequest> opportunities) {
     return null;
   }
-  public Map<Boolean, String> updateAgreement(List<Opportunity> opportunities) {
+  public Map<String, OpportunityResponse> updateAgreement(List<OpportunityRequest> opportunities) {
     return null;
   }
-  public Map<Boolean, String> submitAgreement(List<Opportunity> opportunities) {
+  public Map<String, OpportunityResponse> submitAgreement(List<OpportunityRequest> opportunities) {
     return null;
   }
-  public Map<Boolean, String> deleteAgreement(List<Opportunity> opportunities) {
+  public Map<String, OpportunityResponse> deleteAgreement(List<OpportunityRequest> opportunities) {
     return null;
   }
-  public Map<Boolean, String> getFundingMixData(List<Opportunity> opportunities) {
+  public Map<String, OpportunityResponse> getFundingMixData(List<OpportunityRequest> opportunities) {
     return null;
   }
-  public Map<Boolean, String> createPriceCategory(List<Opportunity> opportunities) {
+  public Map<String, OpportunityResponse> createPriceCategory(List<OpportunityRequest> opportunities) {
     return null;
   }
-  public Map<Boolean, String> searchPriceCategory(List<Opportunity> opportunities) {
+  public Map<String, OpportunityResponse> searchPriceCategory(List<OpportunityRequest> opportunities) {
     return null;
   }
-  public Map<Boolean, String> getPriceCategoryStatus(List<Opportunity> opportunities) {
+  public Map<String, OpportunityResponse> getPriceCategoryStatus(List<OpportunityRequest> opportunities) {
     return null;
   }
 }

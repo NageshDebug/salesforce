@@ -1,10 +1,10 @@
 public interface PaymentService {
-  Map<Boolean, String> createAgreement(List<Opportunity> opportunities);
-  Map<Boolean, String> updateAgreement(List<Opportunity> opportunities);
-  Map<Boolean, String> submitAgreement(List<Opportunity> opportunities);
-  Map<Boolean, String> deleteAgreement(List<Opportunity> opportunities);
-  Map<Boolean, String> getFundingMixData(List<Opportunity> opportunities);
-  Map<Boolean, String> createPriceCategory(List<Opportunity> opportunities);
-  Map<Boolean, String> searchPriceCategory(List<Opportunity> opportunities);
-  Map<Boolean, String> getPriceCategoryStatus(List<Opportunity> opportunities);
+  Map<String, OpportunityResponse> createAgreement(List<OpportunityRequest> opportunities);
+  Map<String, OpportunityResponse> updateAgreement(List<OpportunityRequest> opportunities);
+  Map<String, OpportunityResponse> submitAgreement(List<OpportunityRequest> opportunities);
+  Map<String, OpportunityResponse> deleteAgreement(List<OpportunityRequest> opportunities);
+  Map<String, OpportunityResponse> getFundingMixData(List<OpportunityRequest> opportunities);
+  Map<String, OpportunityResponse> createPriceCategory(List<OpportunityRequest> opportunities);
+  Map<String, OpportunityResponse> searchPriceCategory(List<OpportunityRequest> opportunities);
+  Map<String, OpportunityResponse> getPriceCategoryStatus(List<OpportunityRequest> opportunities);
 }
