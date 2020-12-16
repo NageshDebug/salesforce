@@ -1,5 +1,4 @@
 public interface CalloutHandler {
-  void getOAuthToken();
   Map<Boolean, String> createAgreement(String requestBody);
   Map<Boolean, String> updateAgreement(String requestBody, Object queryParameter);
   Map<Boolean, String> submitAgreement(Object queryParameter);

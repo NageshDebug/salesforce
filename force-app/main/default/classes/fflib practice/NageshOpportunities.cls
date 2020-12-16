@@ -28,12 +28,11 @@ public with sharing class NageshOpportunities extends fflib_SObjectDomain {
     // Validate Opportunities
     for (Opportunity opp : (List<Opportunity>) Records) {
       if (opp.Type != null && opp.Type.startsWith('Existing') && opp.AccountId == null) {
-        opp.AccountId.addError(error('You must provide an Account for Opportunities for existing Customers.', opp, Opportunity.AccountId));
+        //opp.AccountId.addError(error('You must provide an Account for Opportunities for existing Customers.', opp, Opportunity.AccountId));
       }
     }
   }
 
-  //will execute AfterUpdate
   public override void onValidate(Map<Id, SObject> existingRecords) {
     // Validate changes to Opportunities
     for (Opportunity opp : (List<Opportunity>) Records) {

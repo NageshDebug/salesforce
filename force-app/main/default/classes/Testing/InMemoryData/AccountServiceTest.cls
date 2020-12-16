@@ -1,17 +1,5 @@
 @isTest
 private with sharing class AccountServiceTest {
-  /***
-     Advantage of InMemory Data Setup is: 
-        No DML operations=> No need to follow Salesforce Record lifecycle (doesn't run validation rules, workflow rules, process builders, Flows and Triggers (Before and AFter) etc)
-        So, deployment time is very less.  
-
-     Difference between Inmemory data setup by creating object and JSON string. 
-     Inmemory data setup by creating object limitation: we can't set values for rollup summary fields, formula fields without saving the record
-     
-     By using JSON we can set the values for rollup summary fields, formula fields.
-     
-     */
-
   @isTest
   private static void testCreateAccount() {
     Account acct = new Account();

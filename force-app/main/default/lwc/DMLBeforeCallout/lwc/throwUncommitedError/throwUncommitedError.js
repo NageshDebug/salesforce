@@ -36,4 +36,3 @@ export default class ThrowUncommitedError extends LightningElement {
             })
     }
 }
-
