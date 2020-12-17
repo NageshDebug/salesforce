@@ -1,3 +1,3 @@
 public interface SecurityService {
-  Boolean isCurrentUserAllowedToEnter(String userName);
+  Boolean isCurrentUserAllowedToUpdate(String userName);
 }

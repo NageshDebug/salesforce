@@ -9,12 +9,14 @@ public with sharing class SecurityController {
     this.security = security;
   }
 
-  public Boolean openDoor(String userName) {
-    Boolean isUserHasAccess = this.security.isCurrentUserAllowedToEnter(userName);
+  public Boolean isCurrentUserAllowedToUpdate(String userName, List<OpportunityLineItem> oppLineItemList) {
+    Boolean isUserHasAccess = this.security.isCurrentUserAllowedToUpdate(userName);
     if (!isUserHasAccess) {
       throw new SecurityException('You do not have access to this house.');
     }
-    return isUserHasAccess;
+
+    Boolean isRecordUpdated = insertOpportunityLineitem(oppLineItemList);
+    return isRecordUpdated;
   }
 
   public Boolean insertOpportunityLineitem(List<OpportunityLineItem> oppLineItemList) {

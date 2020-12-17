@@ -1,5 +1,6 @@
 @isTest
-public with sharing class SecurityControllerWithoutDITest {
+public with sharing class SecurityControllerWithDITest {
+    
   @isTest
   private static void openDoor_userHasAccess_doorOpen() {
     // Given
@@ -16,7 +17,6 @@ public with sharing class SecurityControllerWithoutDITest {
 
     // when
     Boolean isUserHasAccess;
-    Boolean isOppLineItemUpdated;
     System.runAs(userWithAccess) {
       // Insert Product
       Product2 pr = new Product2();
@@ -72,12 +72,10 @@ public with sharing class SecurityControllerWithoutDITest {
         oppLineItems.add(oppLineItem);
       }
       SecurityController standardHouse = new SecurityController(securityHandler);
-      isUserHasAccess = standardHouse.openDoor('Nagesh');
-      isOppLineItemUpdated = standardHouse.insertOpportunityLineitem(oppLineItems);
+      isUserHasAccess = standardHouse.isCurrentUserAllowedToUpdate('Nagesh', oppLineItems);
     }
 
     // Then
-    System.assert(isUserHasAccess, 'The door should be open.');
-    System.assert(isOppLineItemUpdated, 'The door should be open.');
+    System.assert(isUserHasAccess, 'OpportunityLineItem should be updated.');
   }
 }
