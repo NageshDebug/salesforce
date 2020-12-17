@@ -57,7 +57,7 @@ global with sharing class CreateInvoicesJob
 			Set<Id> opportunitiesToInvoice = new Map<Id, SObject>(opps).keySet();
 						
 			// Create invoices
-			//OpportunitiesService.createInvoices(opportunitiesToInvoice, 0);	
+			OpportunitiesService.createInvoices(opportunitiesToInvoice, 0);	
 		}
 		catch (Exception e)
 		{

@@ -1,6 +1,6 @@
 @isTest
-public class OpportunitiesServiceTest {
-  @isTest
+public with sharing class OpportunitiesMockServiceTest {
+     @isTest
   private static void discountShouldBeZero() {
     System.assertEquals(0, createOpportunity(0).Probability);
   }
