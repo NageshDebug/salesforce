@@ -1,3 +1,0 @@
-public interface SecurityService {
-  Boolean isCurrentUserAllowedToEnter(String currentUserName);
-}

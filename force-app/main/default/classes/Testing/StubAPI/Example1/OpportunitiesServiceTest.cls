@@ -26,7 +26,7 @@ public class OpportunitiesServiceTest {
 
     DiscountsService mockDS = (DiscountsService) Test.createStub(DiscountsService.class, new MockDiscountsService(amount));
 
-    Opportunity o = new OpportunitiesService(mockDS).createOpportunity(a.Id);
+    Opportunity o = new OpportunitiesMockService(mockDS).createOpportunity(a.Id);
     return o;
   }
 }

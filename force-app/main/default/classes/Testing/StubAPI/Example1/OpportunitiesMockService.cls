@@ -1,6 +1,6 @@
-public with sharing class OpportunitiesService {
+public with sharing class OpportunitiesMockService {
   private DiscountsService discountService;
-  public OpportunitiesService(DiscountsService discountService) {
+  public OpportunitiesMockService(DiscountsService discountService) {
     this.discountService = discountService;
   }
   public Opportunity createOpportunity(Id accountId) {
