@@ -65,7 +65,9 @@ public abstract class CalloutHandlerUtil implements CalloutHandler{
     }
     
     public void sendRequestAndParseApiResponse(HttpRequest request, Pricing_Endpoints__mdt metadata) {
+        System.debug('Request--------------------------->'+request);
         HttpResponse response = new Http().send(request);
+        System.debug('Response--------------------------->'+response);
         parseApiResponse(response.getStatusCode() == metadata.Status_Code__c, response.getStatusCode(), response.getStatus(), response.getBody(), response.getHeader(metadata.Debug_ID__c));
     }
     

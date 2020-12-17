@@ -9,6 +9,7 @@ string tempvar = 'Enter_your_name_here';
 System.debug('Hello World!');
 System.debug('My name is ' + tempvar);
 
-
-batchExample b = new batchExample('No Contact'); 
+batchExample b = new batchExample('No Contact');
 Id batchProcessId = Database.executeBatch(b, 3);
+
+CalloutHandlerMock.createAgreement();
