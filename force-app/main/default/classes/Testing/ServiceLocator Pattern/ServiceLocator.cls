@@ -1,3 +1,19 @@
+/**
+ Benefits of using Service Locator
+    Helps in Unit testing.
+    Extending the application becomes easier.
+    Helps to enable loose coupling
+
+
+Disadvantages of Service Locator
+    It’s a bit complex.
+    It’s a GOD object because every class needs to interact with it to set the dependencies.
+
+
+Example: setMock, setMockInstance, removeMock methods will be helpful during test class implementation. 
+        It will be used for the substitution of real implementation with a fake one. 
+        For example, if you need to mock callout data.    
+ */
 public with sharing class ServiceLocator {
   private static final Map<Type, Type> customTypesMap = new Map<Type, Type>{};
   private static final Map<Type, Type> testTypesMap = new Map<Type, Type>{};
