@@ -51,6 +51,11 @@
    
    Note that you cannot use @testSetup in combination with @isTest(SeeAllData=true) as test data cannot be isolated from real data during test execution.
 
+   Using this annotation greatly slows down test times as well as making the tests dependent on existing data in the organization/salesforce instance. 
+   By default test classes/methods do not have access to pre-existing data in the organization, such as standard objects, custom objects, and custom settings data. 
+   This is good practice and forces you to create your test data in isolation. 
+   The @isTest(seeAllData=true) annotation overrides this “safety” feature and should only be used in very unique cases when you cannot create your own test data.
+
    Tools to make it faster: TestFactory
    public with sharing class TestFactory{
 	public static List<Account> createAccounts(Integer count, Boolean performDML){
