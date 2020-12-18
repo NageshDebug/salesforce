@@ -2,11 +2,15 @@ public with sharing class SecurityController {
   @TestVisible
   private SecurityService security;
 
+  @TestVisible
+  private OpportunityRepository repository;
+
   public class SecurityException extends Exception {
   }
 
-  public SecurityController(SecurityService security) {
+  public SecurityController(SecurityService security, OpportunityRepository repository) {
     this.security = security;
+    this.repository = repository;
   }
 
   public Boolean isCurrentUserAllowedToUpdate(String userName, List<OpportunityLineItem> oppLineItemList) {
@@ -15,10 +19,10 @@ public with sharing class SecurityController {
       throw new SecurityException('You do not have access to this house.');
     }
 
-    Boolean isRecordUpdated = insertOpportunityLineitem(oppLineItemList);
+    Boolean isRecordUpdated = repository.insertOpportunityLineitem(oppLineItemList);
     return isRecordUpdated;
   }
-
+/*
   public Boolean insertOpportunityLineitem(List<OpportunityLineItem> oppLineItemList) {
     try {
       update oppLineItemList;
@@ -26,5 +30,5 @@ public with sharing class SecurityController {
     } catch (DmlException exp) {
       return false;
     }
-  }
+  }*/
 }

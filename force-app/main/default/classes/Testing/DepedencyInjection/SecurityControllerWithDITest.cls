@@ -1,6 +1,5 @@
 @isTest
 public with sharing class SecurityControllerWithDITest {
-    
   @isTest
   private static void openDoor_userHasAccess_doorOpen() {
     // Given
@@ -14,7 +13,7 @@ public with sharing class SecurityControllerWithDITest {
     insert new PermissionSetAssignment(AssigneeId = userWithAccess.id, PermissionSetId = houseManagementPS.Id);
 
     SecurityService securityHandler = new SecurityServiceImpl();
-
+    SecurityControllerWithDITest.OpportunityRepositoryImpl repositoryImpl= new SecurityControllerWithDITest.OpportunityRepositoryImpl();
     // when
     Boolean isUserHasAccess;
     System.runAs(userWithAccess) {
@@ -71,11 +70,17 @@ public with sharing class SecurityControllerWithDITest {
         oppLineItem.Quantity = 100;
         oppLineItems.add(oppLineItem);
       }
-      SecurityController standardHouse = new SecurityController(securityHandler);
+      SecurityController standardHouse = new SecurityController(securityHandler,repositoryImpl);
       isUserHasAccess = standardHouse.isCurrentUserAllowedToUpdate('Nagesh', oppLineItems);
     }
 
     // Then
     System.assert(isUserHasAccess, 'OpportunityLineItem should be updated.');
+  }
+
+  public class OpportunityRepositoryImpl implements OpportunityRepository {
+    public Boolean insertOpportunityLineitem(List<OpportunityLineItem> oppLineItemList){
+        return !oppLineItemList.isEmpty();
+    }
   }
 }
