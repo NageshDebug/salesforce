@@ -1,4 +1,1 @@
-SELECT Id, Name, Type, Phone, AccountNumber, Industry, Account_ExtId__c
-  FROM Account
-  ORDER BY Name
-  LIMIT 5
+Select Id, Validation_Rule_Expression__c, Vendavo_Calculation_Fields__c,ASP__c,ATPV__c, Share_Of_Wallet__c, nTPV__C, Percentage_Rate__c, TXN_Fee__c, Percentage_Volume__c from Account_Client__c
