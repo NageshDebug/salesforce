@@ -1,7 +1,7 @@
 @isTest
-private class RequestSenderTest {
+public class RequestSenderTest {
   @isTest
-  private static void getGooglePageWithServiceLocatorTest() {
+  static void getGooglePageWithServiceLocatorTest() {
     ServiceLocator.setMock(RequestSender.class, FakeRequestSender.class);
     String body = RequestSender.getInstance().getGooglePage();
     System.assertEquals('GOOGLE', body);
