@@ -21,6 +21,9 @@ public class StaticVsDynamicBindingTest {
     sObject so = Schema.getGlobalDescribe().get('Account').newSObject();
     //onlyStatic(so); //Not possible
     staticAndDynamic(so);
+
+    StaticVsDynamicBinding.SuperClass str = (StaticVsDynamicBinding.SuperClass)Type.forName('StaticVsDynamicBinding.SuperClass').newInstance();
+    System.assert(str!=null);
   }
 
   private static void onlyStatic(Account obj) {
