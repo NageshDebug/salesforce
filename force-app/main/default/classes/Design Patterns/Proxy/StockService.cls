@@ -9,6 +9,10 @@ public interface StockService {
 /***
  Advantages and disadvantages
     + You can control access to the service object however you wish
+        * Caching
+        * Webservice Callouts
+        * Database Connections
+        * Complex object creation etc...
     + Additional abilities related to managing the life cycle of the service object
     + It works without a service object
     + It improves performance and code security.
