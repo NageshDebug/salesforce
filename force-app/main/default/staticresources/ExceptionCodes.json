@@ -1,0 +1,56 @@
+[
+    {
+     "id": "QUERY_OPERATION_FAILED",
+     "code": 991,
+     "clientTemplate": "Encountered an error",
+     "systemTemplate": "Query operation failed UserId: {0} | TraceId: {1} | TotalTime: {2} | Method: {3} | Path: {4} | Body: {5}"
+    },
+    {
+     "id": "SOBJECT_OPERATION_FAILED",
+     "code": 992,
+     "clientTemplate": "Encountered an error",
+     "systemTemplate": "SObject operation failed UserId: {0} | TraceId: {1} | TotalTime: {2} | Method: {3} | Path: {4} | Body: {5}"
+    },
+    {
+     "id": "JSON_SERIALIZATION_FAILED",
+     "code": 993,
+     "clientTemplate": "Encountered an error",
+     "systemTemplate": "Json serialization failed, check if Heroku is up or restart services UserId: {0} | TraceId: {1} | TotalTime: {2} | Method: {3} | Path: {4} | Body: {5}"
+    },
+    {
+     "id": "DATABASE_OPERATION_FAILED",
+     "code": 994,
+     "clientTemplate": "Encountered an error",
+     "systemTemplate": "Database operation failed UserId: {0} | TraceId: {1} | TotalTime: {2} | Method: {3} | Path: {4} | Body: {5}"
+    },
+    {
+     "id": "CALLOUT_FAILED",
+     "code": 995,
+     "clientTemplate": "Encountered an error",
+     "systemTemplate": "Callout to external service failed UserId: {0} | TraceId: {1} | TotalTime: {2} | Method: {3} | Path: {4} | Body: {5}"
+    },
+    {
+     "id": "SEARCH_FAILED",
+     "code": 996,
+     "clientTemplate": "Searching failed, try again",
+     "systemTemplate": "Searching Salesforce failed UserId: {0} | TraceId: {1} | TotalTime: {2} | Method: {3} | Path: {4} | Body: {5}"
+    },
+    {
+     "id": "REST_DISPATCHER_DEBUG",
+     "code": 997,
+     "clientTemplate": "Encountered an error",
+     "systemTemplate": "Debug UserId: {0} | TraceId: {1} | TotalTime: {2} | Method: {3} | Path: {4} | Body: {5}"
+    },
+    {
+        "id": "SERIALIZATION_FAILED",
+        "code": 998,
+        "clientTemplate": "Encountered an error",
+        "systemTemplate": "Serialization failed, error: {0}"
+    },
+    {
+        "id": "REST_DISPATCHER_FAILED",
+        "code": 999,
+        "clientTemplate": "Encountered an error",
+        "systemTemplate": "An error occurred UserId: {0} | TraceId: {1} | TotalTime: {2} | Method: {3} | Path: {4} | Body: {5}"
+    }
+]
