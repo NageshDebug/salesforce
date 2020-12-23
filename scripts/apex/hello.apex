@@ -14,4 +14,8 @@ Id batchProcessId = Database.executeBatch(b, 3);*/
 
 //CalloutHandlerMock.createAgreement();
 
-AccountIntegrationTest.testCreateAccount();
+//AccountIntegrationTest.testCreateAccount();
+for(Integer i=0;i<10;i++){
+    System.debug('--------------------->'+SOQLUtils.myObjectMap.get('Nagesh'));
+}
+

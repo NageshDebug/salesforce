@@ -1,3 +1,16 @@
+/**
+ Purpose
+ -----------
+ 1. Transaction Management between 
+      --2 Salesforce orgs 
+      --Salesforce org and other any external system (API, another cloud etc)
+      --Salesforce org and any external database  (Oracle, MYSQL, ETL like informatica etc) through Salesforce Connect
+ 2. Initiate API callouts
+ 3. Initiate Database connectivity to query the data and to do CRUD operations
+      --check permissions like FLS 
+ 4. Handles business logic.
+ * 
+ */
 //https://codereview.stackexchange.com/questions/180553/is-this-the-right-approach-for-controller-service-dao-implementation
 public class AccountServiceImpl implements AccountService {
   private AccountSelector accountSelector = (AccountSelector) AccountApplication.Selector.newInstance(Account.SObjectType);

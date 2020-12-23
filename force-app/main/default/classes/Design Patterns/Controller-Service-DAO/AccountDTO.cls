@@ -30,10 +30,25 @@
     Instead, If I get these records from the server-side controller (Apex Class) in a single server call in a single list then I can use this list and 
     these individual list 1,2,3 wherever needed Sounds Great !! right ?? 
 
+    Another Example
+    Suppose You have to store account corresponding to the primary contact. In that case, you have to use the wrapper class 
+    because in general what we have collections like List which can hold only one Object type- List acc = new List();  
+    
+    Using List we won’t be able to store Accounts and Contacts together, their wrapper class comes to rescue, 
+    we can declare Account and contact as wrapper class members and then use that class as a collection. 
+      
+      Class wrapperClass{
+      Public Account a;
+      Public Contact c;
+      } 
+      And then use this wrapper class as a collection type. List wrap = new List();
+
     4. It will plays an important to calculate aggregations like sum or total, average, min and max etc for child records.
 
-    5. It handles complex serialize issues. Complex Collections are not supported yet in Lighting components.
+    5. It handles complex serialize issues. Complex Collections like Map are not supported yet in Lighting components.
        we can serialize the data before sending to UI.
+
+   6. With a Transient view, you could maintain smaller view state especially when data is passed through the browser and accessed back.
     */
 public class AccountDTO {
   @AuraEnabled
