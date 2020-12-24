@@ -23,4 +23,14 @@ public with sharing class StringComparisionTest {
     Integer endTime = Limits.getCpuTime();
     System.debug('Method-2 Spent Time:' + (endTime - startTime));
   }
+
+  @isTest
+  public static void method3() {
+    Integer startTime = Limits.getCpuTime();
+    for (Integer i = 0; i < 100000; i++) {
+      Boolean result = 'Test'=='Test';
+    }
+    Integer endTime = Limits.getCpuTime();
+    System.debug('Method-3 Spent Time:' + (endTime - startTime));
+  }
 }
