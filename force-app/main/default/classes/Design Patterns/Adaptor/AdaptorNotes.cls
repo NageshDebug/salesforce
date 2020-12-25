@@ -34,5 +34,17 @@ public with sharing class AdaptorNotes {
     Adapter must implement the interface expected by the client.
     In Class Adapter Implementation, the Adapter method will call the expected functionality method of the inherited adaptee class.
     In Object Adapter Implementation, the Adapter will have an instance of adaptee class. The adapter method will call the expected functionality method of the inherited adaptee class.
+    
+    Advantages (client doesn’t have to be modified each time)
+    -----------
+    The adapter pattern converts the interface of a class into another interface the clients expect. Adapter lets classes 
+    work together that couldn’t otherwise because of incompatible interfaces.
+
+    This pattern allows us to use a client with an incompatible interface by creating an Adapter that does the conversion. 
+    This acts to decouple the client from the implemented interface, and if we expect the interface to change over time, 
+    the adapter encapsulates that change so that the client doesn’t have to be modified each time it needs to operate against 
+    a different interface.
+    
+    
     */
 }
