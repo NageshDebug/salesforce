@@ -50,12 +50,12 @@ public with sharing class Trigger_Best_Practices {
 
      When to choose Before Vs After Trigger
      --------------------------------------
-        // This lazy dude wrote code to auto-accept and close all cases!
+        //This lazy dude wrote code to auto-accept and close all cases!
         trigger LazyEmployee on Case (after insert) {  //After Trigger is not correct to use here
             List<Case> newCases = new List<Case>();    //No need to create another collection
             for (Case a : Trigger.new) {
-                a.Status = "Closed";
-                a.Owner  = "David Liu";                //I would like prefer to use ownerId instead of owner. 
+                a.Status = 'Closed';
+                a.Owner  = 'Nagesh';                   //I would like prefer to use ownerId instead of owner. 
                 newCases.add(a)
             }
             update newCases;                           //No need to fire DML explicitly
@@ -63,7 +63,7 @@ public with sharing class Trigger_Best_Practices {
 
 
         //Fixed version
-        // This lazy dude wrote code to auto-accept and close all cases!
+        //This lazy dude wrote code to auto-accept and close all cases!
         trigger LazyEmployee on Case (before insert) {
             for (Case newCase : Trigger.new) {
                 newCase.Status  = 'Closed';
