@@ -19,7 +19,9 @@ public with sharing class Trigger_Best_Practices {
                      
                      Data can be modified in before triggers only, hence record field auto population by the system can be performed here.
 
-                    Limitations of Before Triggers
+                     Prevent not to INSERT/UPDATE/DELETE records for certain users or for certain profiles or certains business criteria.
+
+                     Limitations of Before Triggers
                         You can’t access the Id field of new records in Before Triggers
                         Formula fields are not calculated in Before Triggers
                         Roll-up summaries are not available
