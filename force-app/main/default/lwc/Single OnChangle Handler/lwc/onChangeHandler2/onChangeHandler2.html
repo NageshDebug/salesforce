@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Take User Inputs in a Single Shot" icon-name="standard:contact">
+        <div class="slds-p-around_small">
+            <lightning-input label="First Name" data-field="FirstName" class="slds-m-bottom_x-small"></lightning-input>
+            <lightning-input label="Last Name" data-field="LastName" class="slds-m-bottom_x-small" required>
+            </lightning-input>
+            <lightning-button label="Get Values" variant="brand" onclick={takeInputs}></lightning-button>
+
+            <div class="slds-p-top_small">
+                Name: {name}
+            </div>
+        </div>
+    </lightning-card>
+</template>

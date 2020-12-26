@@ -1,0 +1,19 @@
+<template>
+    <div class="slds-box slds-theme_default">
+        <div class="slds-m-around_medium">
+            <lightning-input type="text" max-length=12 required label="Name" name={nameField}
+                onchange={onChangeHandler}>
+            </lightning-input>
+            <lightning-input type="tel" label="Phone" name={phoneField} onchange={onChangeHandler}></lightning-input>
+            <lightning-input required label="Fax" name={faxField} onchange={onChangeHandler}>
+            </lightning-input>
+        </div>
+        <div>
+            <lightning-button label="Save" onclick={saveContact}>
+            </lightning-button>
+        </div>
+    </div>
+    {name}<br />
+    {phone} <br />
+    {fax}
+</template>

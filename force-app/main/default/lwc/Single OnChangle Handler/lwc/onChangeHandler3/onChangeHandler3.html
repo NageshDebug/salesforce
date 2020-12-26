@@ -1,0 +1,74 @@
+<template>
+    <lightning-card title="Date Field">
+        <lightning-input data-id="dateField" type="date" onchange={handleChange} label="Enter a date"></lightning-input>
+        <p slot="footer">Date Field Value is:- {dateFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="Date Time Field">
+        <lightning-input data-id="datetimeField" type="datetime" onchange={handleChange}
+            label="Enter a date/time value"></lightning-input>
+        <p slot="footer">Date Time Field value is:- {dateTimeFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="Time Field">
+        <lightning-input data-id="timeField" type="time" onchange={handleChange} label="Enter a time"></lightning-input>
+        <p slot="footer">Time Field value is:- {timeFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="Color Field">
+        <lightning-input data-id="colorField" type="color" onchange={handleChange} label="Favorite color">
+        </lightning-input>
+        <p slot="footer">Color value is:- {colorFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="File Upload Field">
+        <lightning-input data-id="fileField" type="file" onchange={handleChange} label="Attachment"></lightning-input>
+        <p slot="footer">File Name is:- {fileUploadValue}</p>
+    </lightning-card>
+    <lightning-card title="Text Field">
+        <lightning-input data-id="textField" type="text" onchange={handleChange} label="Enter some text">
+        </lightning-input>
+        <p slot="footer">Text Field Value is:- {textFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="Email Field">
+        <lightning-input data-id="emailField" type="email" onchange={handleChange} label="E-mail address">
+        </lightning-input>
+        <p slot="footer">Email Field Value is:- {emailFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="password Field">
+        <lightning-input data-id="passwordField" type="password" onchange={handleChange} label="Enter your password">
+        </lightning-input>
+        <p slot="footer">Password Field Value is:- {passwordFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="Phone Field">
+        <lightning-input data-id="phoneField" type="tel" onchange={handleChange} label="phone field">
+        </lightning-input>
+        <p slot="footer">Phone Field Value is:- {phoneFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="URL Field">
+        <lightning-input data-id="urlField" type="url" onchange={handleChange} label="Enter a URL"></lightning-input>
+        <p slot="footer">Url Field Value is:- {urlFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="Numnber Field">
+        <lightning-input data-id="numberField" type="number" onchange={handleChange} label="Enter a number">
+        </lightning-input>
+        <p slot="footer">Number Field Value is:- {numberFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="checkbox Field">
+        <lightning-input data-id="checkboxField" type="checkbox" onchange={handleChange} label="Basic option">
+        </lightning-input>
+        <p slot="footer">Check Box Field Value is:- {checkBoxFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="Checkbox Button Field">
+        <lightning-input data-id="checkbox-buttonField" type="checkbox-button" onchange={handleChange}
+            label="Input One"></lightning-input>
+        <p slot="footer">Check Box Button Field Value is:- {checkBoxButtonFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="Toggle Field">
+        <lightning-input data-id="toggleField" type="toggle" onchange={handleChange} label="Basic option">
+        </lightning-input>
+        <p slot="footer">Toggle Field Value is:- {toogleFieldValue}</p>
+    </lightning-card>
+    <lightning-card title="Search Field">
+        <lightning-input data-id="searchField" onchange={handleChange} label="Search when user hits the 'enter' key"
+            type="search">
+        </lightning-input>
+        <p slot="footer">Toggle Field Value is:- {searchFieldValue}</p>
+    </lightning-card>
+</template>
