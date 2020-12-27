@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="Getter Setter Mechanism" icon-name="utility:bucket">
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+
+                <div>
+                    <lightning-input label="Message" value={message} onchange={handleMessage}></lightning-input>
+                </div>
+
+
+                <div>
+                    <lightning-formatted-text value={outputMessage}></lightning-formatted-text>
+                </div>
+
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>
