@@ -1,0 +1,35 @@
+<template>
+    <lightning-card title="Account Form">
+        <lightning-record-edit-form record-id={recordId} onload={handleLoad} object-api-name="Account"
+            onsuccess={handleSucess}>
+
+            <lightning-input-field data-field="Name" field-name="Name" onchange={handleFieldChange}>
+            </lightning-input-field>
+
+            <lightning-input-field data-field="Website" field-name="Website" onchange={handleFieldChange}>
+            </lightning-input-field>
+
+            <lightning-input-field data-field="Industry" field-name="Industry" onchange={handleFieldChange}>
+            </lightning-input-field>
+
+            <lightning-input label="AccountNumber" data-field="AccountNumber" value={accountRecord.AccountNumber}
+                onchange={handleFieldChange}>
+            </lightning-input>
+
+            <lightning-input label="NumberOfEmployees" data-field="NumberOfEmployees"
+                value={accountRecord.NumberOfEmployees} onchange={handleFieldChange}>
+            </lightning-input>
+
+            <lightning-input label="Site" data-field="Site" value={accountRecord.Site} onchange={handleFieldChange}>
+            </lightning-input>
+
+            <lightning-textarea label="Description" data-field="Description" value={accountRecord.Description}
+                onchange={handleFieldChange}></lightning-textarea>
+
+            <lightning-button class="slds-m-top_small" variant="brand" name="save" label="Save" onclick={handleSubmit}>
+            </lightning-button>
+
+        </lightning-record-edit-form>
+    </lightning-card>
+
+</template>

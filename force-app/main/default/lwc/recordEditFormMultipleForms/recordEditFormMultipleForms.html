@@ -1,0 +1,42 @@
+<template>
+    <lightning-card variant="Narrow" title="Hello" icon-name="standard:account">
+        <!--Headings-->
+        <lightning-layout horizontal-align="center">
+            <lightning-layout-item padding="around-small" size="6">
+                Account Name
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="6">
+                Industry
+            </lightning-layout-item>
+        </lightning-layout>
+
+        <!--First record edit form-->
+        <lightning-record-edit-form object-api-name="Account" onerror={handleError}>
+            <lightning-layout horizontal-align="spread">
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-input-field field-name='Name' variant="label-hidden"></lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-input-field field-name='Industry' variant="label-hidden"></lightning-input-field>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-record-edit-form>
+
+        <!--Second record edit form-->
+        <lightning-record-edit-form object-api-name="Account" onerror={handleError}>
+            <lightning-layout horizontal-align="spread">
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-input-field field-name='Name' variant="label-hidden"></lightning-input-field>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-input-field field-name='Industry' variant="label-hidden"></lightning-input-field>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-record-edit-form>
+
+        <!--Save Button-->
+        <lightning-button variant="brand" name="save" label="Create Accounts" onclick={handleSave}
+            class="slds-m-left_medium">
+        </lightning-button>
+    </lightning-card>
+</template>
