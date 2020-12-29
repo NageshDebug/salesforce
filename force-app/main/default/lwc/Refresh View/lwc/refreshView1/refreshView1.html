@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Refresh Lightning web component">
+        <p>
+            <lightning-input type="text" name="input2" label="Enter Value" value={selectedValue}
+                onchange={handleChange}></lightning-input>
+
+            Entered Value : {selectedValue}
+        </p>
+        <p slot="footer">
+            <lightning-button label="Refresh" onclick={refreshComponent}></lightning-button>
+        </p>
+
+    </lightning-card>
+</template>
