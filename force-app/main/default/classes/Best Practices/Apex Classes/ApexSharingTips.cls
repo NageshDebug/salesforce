@@ -16,8 +16,8 @@ Rules
 5. Class have sharing settings of parent class when we implements it or extends it from parent class.   
 
 
-
-
+Note: If an user don't have CRUD access to employee object and clicks Create Employee button, it will create employee record.
+         
 
 
 QUESTIONS:
