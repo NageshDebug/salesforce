@@ -1,0 +1,13 @@
+<template>
+
+    <h1 class="slds-text-heading_small">List of Contacts</h1>
+
+    <div class="slds-p-around_medium">
+
+        <!--For each loop to display Contact from the list.-->
+        <template for:each={lstContacts} for:item="contact">
+            <p key={contact}>{contact}</p>
+        </template>
+    </div>
+
+</template>

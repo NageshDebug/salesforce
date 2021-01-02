@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Calling a Method">
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <lightning-input label="Input Phrase" onchange={handlePhraseChange}></lightning-input>
+
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <label class="slds-text-body_regular">Output Phrase</label>
+                <c-method-child1></c-method-child1>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

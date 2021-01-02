@@ -1,0 +1,23 @@
+<template>
+
+    <lightning-card title="Nagesh Developer Account Details">
+        <div class="slds-m-bottom_x-large">
+
+            <!-- Input for Contact Name -->
+            <div class="slds-p-around_medium">
+                <lightning-input type="text" label="Contact Name" placeholder="Enter contact name..."
+                    value={strContactName} onchange={changeName}></lightning-input>
+            </div>
+
+            <!-- Button to add contact -->
+            <lightning-button variant="brand" label="Add Contact" title="Add Contact" onclick={addContact}
+                class="slds-p-around_medium"></lightning-button>
+
+            <!-- Child Component to display list of Contacts-->
+            <div class="slds-m-top_x-medium slds-p-around_medium">
+                <c-method-child2></c-method-child2>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>
