@@ -1,0 +1,43 @@
+Capabilities of LWC
+--------------------
+LWC is lightweight and faster than Aura, which mean less loading wait times, it has a more responsive UI due to faster execution, and it picks up where Lightning Experience (LEX) tends to drag.
+
+It’s built around modern ECMAScript so we can use imports, extend classes, use arrow functions, etc.
+
+It’s much easier to call @AuraEnabled annotated apex methods and not restricted to a specific controller (simply import them!)
+
+We no longer need to define component attributes in markup. Just mark a property with the @api decorator.
+
+Events can be dispatched without having to create an event definition (as required by Aura).
+
+Wrapping callbacks in $A.getCallback() is no longer necessary. 
+
+We can import a script from another LWC.
+================================================================================================================================
+
+Limitations Yet
+------------------------------
+You cannot use a LWC yet for Actions and LEX console is not yet supported.
+    You can embed the LWC inside of an Aura component as a work-around.
+
+
+LWC does not offer two-way data binding, as Aura does. As a result, user input does not automatically propagate back to the controller.
+    A practice I follow to account for this is to define a single change handler which copies event.currentTarget.value to the controller property corresponding to event.currentTarget.name
+
+
+@api properties passed down from a parent component cannot be modified in the child component.
+    To work around this limitation, one can expose the @api property via a getter / setter which clones the value to an internal property.
+    Will have to dispatch an event if the parent component needs to know when the value is updated
+
+
+“Merge field” expressions are not supported
+    This can be handled via a getter property in the component controller
+
+
+Modifying an element inside of a tracked array property will not trigger a render update since one has to assign to the property directly for the framework to know about it.
+    For arrays use spread operator or one can call .splice() with no parameters to force a render update.
+
+
+Component styling cannot reach across component boundaries such as into a standard component.
+    Notable exception is that one can override css variables which do pass through to the child component boundary.
+    The standard components have been open sourced so one can make a custom version and modify as needed.
