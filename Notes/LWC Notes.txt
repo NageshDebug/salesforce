@@ -41,3 +41,28 @@ Modifying an element inside of a tracked array property will not trigger a rende
 Component styling cannot reach across component boundaries such as into a standard component.
     Notable exception is that one can override css variables which do pass through to the child component boundary.
     The standard components have been open sourced so one can make a custom version and modify as needed.
+
+
+Lightning web components implement the EventTarget interface, which allows them to dispatch events, listen for events, and handle events.
+    To create events, salesforce recommended using the CustomEvent interface instead of the Event interface. 
+    In Lightning web components, CustomEvent provides a more consistent experience across browsers, including Internet Explorer.
+
+
+Handle an Event: There are two ways to listen to an event.
+    Declaratively from the component’s HTML template
+    Programmatically using an imperative JavaScript API
+
+    Note: It’s better to listen from the HTML template since it reduces the amount of code we need to write. To handle events, define methods in the component’s JavaScript class
+          I.e we can also implement the logic to listen the events in the parent component constructor.
+
+
+We can implement two component lifecycle hook functions: connectedCallback and disconnectedCallback. 
+    These are automatically called when the component loads and unloads. We use these two functions to register and unregister from our custom event.
+    
+LWC supported event modes
+    1.  When bubbles : false and composed : false (Default behavior)
+    2.  When bubbles : true  and composed : false
+    3.  When bubbles : true  and composed : true
+    4.  When bubbles : false and composed : true is not supported in LWC.
+
+
