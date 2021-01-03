@@ -43,6 +43,8 @@ Component styling cannot reach across component boundaries such as into a standa
     The standard components have been open sourced so one can make a custom version and modify as needed.
 
 
+Event handling
+---------------
 Lightning web components implement the EventTarget interface, which allows them to dispatch events, listen for events, and handle events.
     To create events, salesforce recommended using the CustomEvent interface instead of the Event interface. 
     In Lightning web components, CustomEvent provides a more consistent experience across browsers, including Internet Explorer.
@@ -138,3 +140,12 @@ Session Storage:
         So, data stored will only be available on the same origin.
         The session storage uses the sessionStorage object to store data on a temporary basis, for a single browser window or tab. 
         The data disappears when session ends i.e. when the user closes that browser window or tab.
+
+
+Note:
+        DOM elements that are passed to a component via slots aren’t owned by the component and aren’t in the component’s shadow tree. 
+        To access these DOM elements passed in via slots, call this.querySelector() andthis.querySelectorAll(). 
+        The component doesn’t own these elements, so you don’t use this.template.querySelector() or this.template.querySelectorAll().
+
+        The following example shows how to get the DOM elements passed to a child component from the child’s context. 
+        Provide the selector name, such as an element, for this.querySelector() and this.querySelectorAll().
