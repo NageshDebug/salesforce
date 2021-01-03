@@ -1,0 +1,30 @@
+<template>
+    <div class="row">
+
+        <div class="column" style="float: left; width: 70%; padding: 10px;">
+            <div class="slds-box">
+                <template if:true={accountList.data}>
+                    <c-child-publisher3 account-list={accountList.data} onaccountselection={onAccountSelection}>
+                    </c-child-publisher3>
+                </template>
+            </div>
+        </div>
+
+        <div class="column" style="float: right; width: 30%; padding: 10px;">
+            <div class="slds-box">
+                <div slot="actions">
+                    <div class="slds-box">
+                        Selected Account Information
+                    </div>
+                </div>
+                <lightning-record-view-form record-id={selectedAccountId} object-api-name="Account">
+                    <div class="slds-box slds-them_shade">
+                        <lightning-output-field field-name="Name"></lightning-output-field>
+                        <lightning-output-field field-name="Phone"></lightning-output-field>
+                        <lightning-output-field field-name="Industry"></lightning-output-field>
+                    </div>
+                </lightning-record-view-form>
+            </div>
+        </div>
+    </div>
+</template>

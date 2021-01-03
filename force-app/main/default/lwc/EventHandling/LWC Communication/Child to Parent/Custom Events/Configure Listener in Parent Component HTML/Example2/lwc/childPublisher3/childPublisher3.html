@@ -1,0 +1,24 @@
+<template>
+    <table class="slds-table slds-table_bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Industry</th>
+            </tr>
+        </thead>
+        <tbody>
+            <template if:true={accountList}>
+                <template for:each={accountList} for:item="acc">
+                    <tr key={acc.Id} data-key={acc.Id} onclick={handleAccountClick}>
+                        <td>{acc.Name}</td>
+                        <td>
+                            <lightning-formatted-phone value={acc.Phone}></lightning-formatted-phone>
+                        </td>
+                        <td>{acc.Industry}</td>
+                    </tr>
+                </template>
+            </template>
+        </tbody>
+    </table>
+</template>
