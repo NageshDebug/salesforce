@@ -115,6 +115,13 @@ LWC Event handling classification
                 Solution-3: Platform events
                 Soluting-4: Streaming API
 
+Points to be noted:- 
+    Any handler in the Bubble or Capture phase can cancel the default behavior of the event by calling event.preventDefault() i.e. if this method is invoked 
+    previously, the handlers in the default phase will not handle the event.
+    
+    If the event's propagation wasn't stopped in the previous phase, the root node for the default phase corresponds to the application root. 
+    Otherwise, the root node corresponds to the component in which the handler called event.stopPropagation() to stop the propagation of event.
+
 
 Other Possibilities (we can't solve all problems. Not recommanded approach, but useful).
 Local Storage or Web Storage:
