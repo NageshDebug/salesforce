@@ -66,3 +66,75 @@ LWC supported event modes
     4.  When bubbles : false and composed : true is not supported in LWC.
 
 
+LWC Event handling classification
+    1. Between LWC components
+        Case-1: Between Parent to child Components
+                Scenario-1: Is data need to pass from parent to child component?
+                            Solution-1: use @api Property variables in child component controller.
+                            Solution-2: use setter and getters methods in child component controller.
+                                         Note-1: very useful to validate and handling exceptions.
+                                         Note-2: we can control the LWC life cycle.
+                            Solution-3: Define the handler methods in the child component and call these methods from parent component controller.
+                Scenario-2: Is Html need to pass from parent to child component?
+                            Solution-1: use un-named slots (HTML code reusability)
+                            Solution-2: use named slots (dynamically handle the HTML content)
+        Case-2: Between Child to Parent Components
+                Scenario-1: is Custom event required?
+                            Solution: 
+                                        Step-1: Define and dispatch Custom event in the Child component controller. 
+                                        Step-2: Listen the event in 2 ways.
+                                                Option-1: Attach the event to the HTML element using the keyword ("on") in parent component (HTML file) and 
+                                                          call the handler method to process the logic from parent component (JS file).
+                                                          Note-1: Custom Event default behaviour (When bubbles : false and composed : false) will follow.
+                                                                  Only immediate parent component can listen the event. But not grand parent.
+                                                          Note-2: Communication using slots is also possible. (but we need to very caustious to control the bubbling)
+                                                Option-2: Attach the listener using "AddEventListener" (in JS file )and call the handler method in the JS file to 
+                                                           process the logic from parent component (JS file).
+                                                           Note-1: Full controll to bubble the events to the root node. (Component to Parent Component - Grand Parent component etc)
+                                                           Note-2: We can bubble the event outside the shadow DOM. 
+                                                           Note-3: we can easily control the events in the case of slots.
+                Scenario-2: is no need to define Custom Event or can we solve the problem with only standard event like mousemove,mouseup,mousedown, mouseout etc ?
+                            Solution:
+                                        we can directly listen in HTML or JavaScript file  as above. 
+
+        Case-3: Between Sibling Components
+                Solution-1: Publish Subscribe Model
+                Solution-2: Lightning Message Service
+                Solution-3: Platform events
+                Soluting-4: Streaming API
+    2. Between LWC and AURA components
+                Solution-1: Publish Subscribe Model
+                Solution-2: Lightning Message Service
+                Solution-3: Platform events
+                Soluting-4: Streaming API
+    3. Between LWC, AURA and VF pages
+                Solution-1: Publish Subscribe Model
+                Solution-2: Lightning Message Service
+                Solution-3: Platform events
+                Soluting-4: Streaming API
+
+
+Other Possibilities (we can't solve all problems. Not recommanded approach, but useful).
+Local Storage or Web Storage:
+---------------------------
+    1. Web storage can be viewed simplistically as an improvement on cookies, providing much greater storage capacity. 
+        Available size is 5MB which considerably more space to work with than a typical 4KB cookie.
+    2. The data is not sent back to the server for every HTTP request (HTML, images, JavaScript, CSS, etc) – reducing the amount of traffic between 
+        client and server.
+    3. The data stored in localStorage persists until explicitly deleted. Changes made are saved and available for all current and future visits to the site.
+        The local storage uses the localStorage object to store data for your entire website on a permanent basis. 
+        That means the stored local data will be available on the next day, the next week, or the next year unless you remove it.
+    4. It works on same-origin policy. So, data stored will only be available on the same origin.
+
+
+Session Storage:
+-----------------
+    1. It is similar to localStorage.
+    2. Changes are only available per window (or tab in browsers like Chrome and Firefox). 
+        Changes made are saved and available for the current page, as well as future visits to the site on the same window. 
+        Once the window is closed, the storage is deleted
+    3. The data is available only inside the window/tab in which it was set.
+    4. The data is not persistent i.e. it will be lost once the window/tab is closed. Like localStorage, it works on same-origin policy. 
+        So, data stored will only be available on the same origin.
+        The session storage uses the sessionStorage object to store data on a temporary basis, for a single browser window or tab. 
+        The data disappears when session ends i.e. when the user closes that browser window or tab.
