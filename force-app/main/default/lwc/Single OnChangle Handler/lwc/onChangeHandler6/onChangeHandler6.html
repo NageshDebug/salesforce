@@ -1,0 +1,24 @@
+<template>
+    <div class="margin-bottom-2rem">
+        <lightning-card title="Single onChange Handler method" icon-name="custom:custom14">
+            <div class="slds-m-around_medium">
+                <div class="parent-wrapper">
+                    <div class="field">
+                        <label for="name">Enter your percentage:</label>
+                        <input id="percentage" type="number" min="0" max="100" name="percentage"
+                            onchange={changeHandler} value={person.percentage} />
+                        <br />
+                        <label for="name">Enter your FirstName:</label>
+                        <input id="firstname" name="firstname" onchange={changeHandler} value={person.firstname} />
+                        <br />
+                        <label for="name">Enter your LastName:</label>
+                        <input id="lastname" name="lastname" onchange={changeHandler} value={person.lastname} />
+                    </div>
+                    {person.percentage}<br />
+                    {person.firstname}<br />
+                    {person.lastname}<br />
+                </div>
+            </div>
+        </lightning-card>
+    </div>
+</template>
