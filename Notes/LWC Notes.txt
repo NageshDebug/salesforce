@@ -116,11 +116,21 @@ LWC Event handling classification
                 Soluting-4: Streaming API
 
 Points to be noted:- 
-    Any handler in the Bubble or Capture phase can cancel the default behavior of the event by calling event.preventDefault() i.e. if this method is invoked 
-    previously, the handlers in the default phase will not handle the event.
+    1. Any handler in the Bubble or Capture phase can cancel the default behavior of the event by calling event.preventDefault() i.e. if this method is invoked 
+        previously, the handlers in the default phase will not handle the event.
     
-    If the event's propagation wasn't stopped in the previous phase, the root node for the default phase corresponds to the application root. 
-    Otherwise, the root node corresponds to the component in which the handler called event.stopPropagation() to stop the propagation of event.
+    2. If the event's propagation wasn't stopped in the previous phase, the root node for the default phase corresponds to the application root. 
+        Otherwise, the root node corresponds to the component in which the handler called event.stopPropagation() to stop the propagation of event.
+
+    3. The addEventListener() method attaches an event handler to the specified element.
+        Syntax: element.addEventListener(event, function, useCapture);
+
+        The first parameter specifies the event type (e.g. click or mousedown).
+        The second parameter defines the function to be called and executed when the event occurs.
+        The optional third parameter is a boolean value using which you may specify whether to use event capturing or bubbling.
+        Note: Unlike setting the event handlers through HTML attributes such as onclick, we don’t need the on prefix here. All you need to write is click, needed to specify the type of the handled event.
+
+    4. The removeEventListener() method removes an event handler that has been attached with the addEventListener() method.
 
 
 Other Possibilities (we can't solve all problems. Not recommanded approach, but useful).
