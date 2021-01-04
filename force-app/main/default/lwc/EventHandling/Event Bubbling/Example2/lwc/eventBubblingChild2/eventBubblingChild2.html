@@ -1,0 +1,17 @@
+<template>
+
+    <!--Step4: We have event handlers on all the div tags wrapping the lightning-button
+        and this is going to invoke the event listener `onsenddata`.
+    -->
+    <div onsenddata={handleSendData} class="childDiv">
+        <div onsenddata={handleSendData} class="childDiv">
+            <div onsenddata={handleSendData} class="childDiv">
+                <div onsenddata={handleSendData} class="childDiv pDiv">
+
+                    <!-- Step1: When user clicks on the button -->
+                    <lightning-button label="click" onclick={handleClick}></lightning-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

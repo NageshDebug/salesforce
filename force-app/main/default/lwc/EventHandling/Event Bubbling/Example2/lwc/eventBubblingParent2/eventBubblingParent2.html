@@ -1,0 +1,11 @@
+<template>
+
+    <!-- Though we have event listeners here they will 
+          not be invoked since the event propagation 
+          is stopped in step7. -->
+    <div onsenddata={handleSendData}>
+        <div onsenddata={handleSendData}>
+            <c-event-bubbling-child2 onsenddata={handleSendData}></c-event-bubbling-child2>
+        </div>
+    </div>
+</template>

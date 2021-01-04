@@ -1,0 +1,17 @@
+<template>
+    <div class="slds-box slds-theme_default">
+        We are in Child component: {accName}
+        <lightning-layout horizontal-align={horizontalAlign}>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <lightning-input label="Enter something" type="text" name="accname" value={accName}
+                    variant="label-hidden"></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <lightning-button label="Send" variant="brand" onclick={handleClick} data-status="Active">
+
+                </lightning-button>
+            </lightning-layout-item>
+
+        </lightning-layout>
+    </div>
+</template>
