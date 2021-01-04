@@ -1,8 +1,3 @@
-/**
- 03:32:00:249 USER_DEBUG [22]|DEBUG|Method-2 Spent Time:240
- 03:32:00:766 USER_DEBUG [11]|DEBUG|Method-1 Spent Time:257
- * 
- */
 @isTest
 public with sharing class AssignmentOperatorTest1 {
   @isTest

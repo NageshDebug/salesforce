@@ -1,13 +1,3 @@
-/**
- Average Test Results
-
- 19:30:23:878 USER_DEBUG [17]|DEBUG|Method-1 Spent Time:307
- 19:30:25:151 USER_DEBUG [25]|DEBUG|Method-2 Spent Time:335
- 19:30:27:232 USER_DEBUG [33]|DEBUG|Method-3 Spent Time:1003
- 19:30:27:774 USER_DEBUG [41]|DEBUG|Method-4 Spent Time:316
- 19:30:28:343 USER_DEBUG [49]|DEBUG|Method-5 Spent Time:330
- */
-
 @isTest
 public with sharing class Problem1Test {
   @testSetup
@@ -22,7 +12,7 @@ public with sharing class Problem1Test {
   @isTest
   private static void test1() {
     Integer startTime = Limits.getCpuTime();
-    Problem2.method1();
+    Problem1.method1();
     Integer endTime = Limits.getCpuTime();
     System.debug('Method-1 Spent Time:' + (endTime - startTime));
   }
@@ -30,7 +20,7 @@ public with sharing class Problem1Test {
   @isTest
   private static void test2() {
     Integer startTime = Limits.getCpuTime();
-    Problem2.refactoredCode();
+    Problem1.method2();
     Integer endTime = Limits.getCpuTime();
     System.debug('Method-2 Spent Time:' + (endTime - startTime));
   }

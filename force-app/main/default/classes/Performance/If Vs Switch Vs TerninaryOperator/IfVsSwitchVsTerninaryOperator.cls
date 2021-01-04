@@ -1,8 +1,3 @@
-/**
- *04:17:17:851 USER_DEBUG [15]|DEBUG|Method-1 Spent Time:769
- 04:17:19:438 USER_DEBUG [26]|DEBUG|Method-2 Spent Time:736
- 04:17:20:381 USER_DEBUG [45]|DEBUG|Method-3 Spent Time:856
- */
 @isTest
 public with sharing class IfVsSwitchVsTerninaryOperator {
   @isTest

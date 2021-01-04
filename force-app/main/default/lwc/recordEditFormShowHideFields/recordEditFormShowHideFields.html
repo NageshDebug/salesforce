@@ -1,0 +1,27 @@
+<template>
+    <lightning-record-edit-form record-id={recordId} object-api-name="Account" onload={formLoadHandler}>
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item size="12">
+                <lightning-messages> </lightning-messages>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="6">
+                <lightning-input-field field-name="Name">
+                </lightning-input-field>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="6">
+                <lightning-input-field field-name="AccountNumber">
+                </lightning-input-field>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="6" if:true={canSee.Phone}>
+                <lightning-input-field field-name="Phone">
+                </lightning-input-field>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="6">
+                <lightning-input-field field-name="Fax">
+                </lightning-input-field>
+            </lightning-layout-item>
+            <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="save" label="Save">
+            </lightning-button>
+        </lightning-layout>
+    </lightning-record-edit-form>
+</template>

@@ -10,8 +10,7 @@
  Testing of the code is cumbersome since we cannot mock the classes for testing purpose.
 
 
- Spring provides support for different frameworks like Hibernate which makes it easier to implement these frameworks. 
- With traditional approach this is not the case.
+ Spring provides support for different frameworks like Hibernate which makes it easier to implement these frameworks. With traditional approach this is not the case.
  */
 public class EmployeeService {
   //insert dependency using new keyword

@@ -1,0 +1,5 @@
+<aura:component description="refreshView4LWC"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId">
+    <aura:handler name="init" value="{! this }" action="{! c.onInit }" />
+    <aura:handler event="force:refreshView" action="{! c.onRefreshView }" />
+</aura:component>

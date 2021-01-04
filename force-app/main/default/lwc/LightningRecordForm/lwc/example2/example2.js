@@ -29,6 +29,7 @@ export default class Example2 extends LightningElement {
 
     handleError(event) {
         console.log(JSON.stringify(event.error));
+        this.clearEditMode();
     }
 
     handleSuccess(event) {
@@ -41,12 +42,6 @@ export default class Example2 extends LightningElement {
     }
 
     handleCancel(event) {
-        console.log(JSON.stringify(event.error));
-        /** if we want the user to redirect to some other page
-         var url = window.location.href;
-         var value = url.substr(0,url.lastIndexOf(‘/’) + 1);
-         window.history.back();
-         return false;
-         */
+        console.log(JSON.stringify(event));
     }
 }

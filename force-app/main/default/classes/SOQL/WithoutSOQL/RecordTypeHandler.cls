@@ -63,19 +63,10 @@ private class RecordTypeHandler {
   }
 
   @isTest
-  private static void getDeveloperNameByObjectId1() {
+  private static void getDeveloperNameByObjectId() {
     Account_Client__c acctClient = new Account_Client__c(Name = 'Nagesh', RecordType = new RecordType(Name = 'Custom Record Type'));
     insert acctClient;
 
-    System.assertEquals('0124x0000009EHtAAM', acctClient.RecordTypeId);
-  }
-
-  @isTest
-  private static void getDeveloperNameByObjectId2() {
-    Account_Client__c acctClient = new Account_Client__c(Name = 'Nagesh', RecordType = new RecordType(Name = 'Custom Record Type'));
-    insert acctClient;
-
-    acctClient = [Select Id, RecordTypeId from Account_Client__c where id=:acctClient]; 
     System.assertEquals('0124x0000009EHtAAM', acctClient.RecordTypeId);
   }
 }

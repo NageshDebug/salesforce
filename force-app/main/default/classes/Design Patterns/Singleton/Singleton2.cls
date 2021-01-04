@@ -25,4 +25,3 @@ Cons:
     2. CPU time is also wasted in creation of instance if it is not required.
     3. we can override the instance with child class instance.
  */
-

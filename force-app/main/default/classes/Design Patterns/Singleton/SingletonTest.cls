@@ -9,4 +9,3 @@ private class SingletonTest {
     }
   }
 }
-

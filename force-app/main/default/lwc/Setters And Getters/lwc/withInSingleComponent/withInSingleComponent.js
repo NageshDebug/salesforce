@@ -8,7 +8,7 @@ export default class WithInSingleComponent extends LightningElement {
         super();
         console.log('Constructor called');
     }
-    get message() {
+    get message1() {
         console.log('Getter method Called');
         return this.defaultMsg + "Lightning Web Component";
     }

@@ -1,0 +1,7 @@
+<template>
+    <lightning-card variant="Narrow" title="Create Account" icon-name="standard:account">
+        <lightning-record-form object-api-name={objectApiName} fields={fields} columns="2" mode={modeName}
+            onload={handleLoad} onsubmit={handleSubmit} onsuccess={handleSuccess}>
+        </lightning-record-form>
+    </lightning-card>
+</template>

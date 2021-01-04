@@ -9,7 +9,7 @@ export default class MethodChild2 extends LightningElement {
     @api
     addContactToList(strContactName) {
         console.log('Child Component:' + strContactName);
-        //this.lstContacts.push(strContactName);  // it doesn't work. use spread operator
+        //this.lstContacts.push(strContactName);
         this.lstContacts = [...this.lstContacts, strContactName];
     }
 

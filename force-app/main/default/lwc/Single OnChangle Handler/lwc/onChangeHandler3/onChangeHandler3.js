@@ -56,5 +56,3 @@ export default class OnChangeHandler3 extends LightningElement {
         }
     }
 }
-
-
