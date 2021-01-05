@@ -29,3 +29,9 @@ let flatten = (acc, element) => {
 
 let result = nested.reduce(flatten, []);
 console.log(result);
+//-------------------------------------------
+let vals = [[0, 1], [2, 3], [4, 5], [5, 6]];
+
+let flattened = vals.reduce((total, next) => total.concat(next), []);
+
+console.log(flattened);
