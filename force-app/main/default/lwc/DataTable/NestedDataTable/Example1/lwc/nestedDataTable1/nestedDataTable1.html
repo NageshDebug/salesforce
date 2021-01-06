@@ -1,0 +1,28 @@
+<template>
+    <template if:true={vendavoResponse}>
+        <br />
+        <lightning-card title="Summary" icon-name="utility:summary">
+            <div style="width: auto;">
+                <lightning-datatable data={summaryTable} columns={summaryTableColumns} key-field="id"
+                    hide-checkbox-column="true"></lightning-datatable>
+            </div>
+        </lightning-card>
+        <br /><br />
+
+        <lightning-card title="Summary Details" icon-name="utility:summarydetail">
+            <div style="width: auto;">
+                <lightning-datatable data={summaryDetailsTable} columns={summaryDetailTableColumns}
+                    hide-checkbox-column="true" key-field="Id"> </lightning-datatable>
+            </div>
+        </lightning-card>
+        <br /><br />
+
+        <lightning-card title="Product Details" icon-name="standard:product">
+            <div style="width: auto;">
+                <lightning-datatable data={productDetailsTable} columns={productTableColumns}
+                    hide-checkbox-column="true" min-column-width='120' key-field="Id">
+                </lightning-datatable>
+            </div>
+        </lightning-card>
+    </template>
+</template>
