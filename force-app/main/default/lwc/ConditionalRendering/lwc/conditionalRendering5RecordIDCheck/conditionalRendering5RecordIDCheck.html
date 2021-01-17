@@ -1,0 +1,34 @@
+<template>
+    <lightning-card title="New Case">
+        <div class="slds-p-left_medium">
+            <lightning-layout>
+                <lightning-layout-item size="6">
+                    <div class="slds-p-left_medium">
+
+                        <!--To show record edit form-->
+                        <lightning-record-edit-form object-api-name="Case" onsuccess={handleSuccess}>
+                            <lightning-input-field field-name="Subject"></lightning-input-field>
+                            <lightning-input-field field-name="AccountId"></lightning-input-field>
+                            <lightning-input-field field-name="Description"></lightning-input-field>
+                            <lightning-button type="submit" label="Create Case" variant="brand"></lightning-button>
+                        </lightning-record-edit-form>
+                    </div>
+                </lightning-layout-item>
+                <template if:true={strCaseId}>
+                    <lightning-layout-item size="6">
+                        <div class="slds-p-left_large">
+                            Recent Case Details:
+
+                            <!-- To view record-->
+                            <lightning-record-view-form object-api-name="Case" record-id={strCaseId}>
+                                <lightning-output-field field-name="Subject"></lightning-output-field>
+                                <lightning-output-field field-name="AccountId"></lightning-output-field>
+                                <lightning-output-field field-name="Description"></lightning-output-field>
+                            </lightning-record-view-form>
+                        </div>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+        </div>
+    </lightning-card>
+</template>

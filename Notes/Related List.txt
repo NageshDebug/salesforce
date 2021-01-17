@@ -1,0 +1,148 @@
+The related lists you can view and use depend on:
+	1. Your user permissions
+	2. User interface and page layout customizations made by your Salesforce administrator
+	3. Personal customizations you can make
+
+
+Limitations of Related List
+---------------------------
+Salesforce provides the "Related List" and "Related Lists" standard Lightning Components in order to show related records. But this standard component has a few limitations such as a 
+1. lack of custom sorting, 
+2. an inability to search using specific fields, 
+3. no custom filters, 
+4. no pagination/infinite scrolling to load more data, and 
+5. difficulty in terms of formatting columns with appropriate data types (such as email, phone, currency, etc.)
+6. No auto refresh the data
+	A manual page refresh is sometimes required in order for your related lists to show the latest changes. A manual page refresh is needed if:
+	1. You create, update, or delete a related record with an Apex controller.
+	2. You create, update, or delete a related record with a flow.
+	3. Another user creates, updates, or deletes a related record.
+	4. Emails are sent but not showing up in the related list.
+
+ 
+Enhanced Realated List
+----------------------
+1. Sorting the data (default order is by record id)
+   https://salesforcethinkers.home.blog/2019/08/20/add-more-fields-to-related-lists-salesforce/
+
+2. Filters the data through Related List Filters
+    Note: these filters are not saved in the database. each time user needs to filter the data.
+
+3. Mass Actions to perform bulk operations through quick actions (or buttons)
+
+4. Break up Salesforce Related Lists into Tabs (map recordList single into each tab)
+
+5. we can change (add/remove) the fields to display in related list through page layouts (related lists) 
+    https://silverlinecrm.com/blog/help-training/salesforce-hack-how-to-add-more-fields-to-related-lists/
+
+6. we can rename the related lists 
+    https://www.infallibletechie.com/2014/12/how-to-rename-related-list-in_31.html
+   
+
+Best Practices
+--------------
+1. Prefer related-list-quick-links over related list whenever possible to increase the page performace.
+    https://merfantz.com/blog/how-to-place-related-list-quick-links-in-salesforce-lightning/
+    https://sf9to5.com/2019/07/16/set-up-related-quick-links/
+
+2. if all related lists on the page are needed, put each related list on each tab.
+
+3. Use Related list single - to display all siblings records.
+     Ex: Let one account has 5 contact records. To display all contact siblings records which associated with the same account record 
+         in the contact detail/related tab, use Related record single component
+
+4. Use Related record component with quick action (update action) to group fields into tabs.
+
+5. Use Related record component to update/view parent record details from child record detail tab.
+   https://salesforcediaries.com/2019/07/12/showing-parent-related-list-on-child-record-page-in-lightning-expereience/
+   https://salesforcediaries.com/2019/05/03/how-to-show-a-set-fields-only-in-lightning-experience-without-code/
+
+    SHOWING EDITABLE PARENT RECORD DETAILS ON CHILD RECORD LIGHTNING PAGE WITHOUT CODE 
+    https://salesforcediaries.com/2019/07/12/showing-editable-parent-record-details-on-child-record-lightning-page-without-code-in-salesforce-lightning-experience/
+
+6. we can use Related List Single component multiple times to create multiple related lists and control the records by criteria (record level, device level, profile level etc)
+
+7. SHOWING PARENT RELATED LIST ON CHILD RECORD PAGE IN LIGHTNING EXPEREIENCE using Related List Single component
+    https://salesforcediaries.com/2019/07/12/showing-parent-related-list-on-child-record-page-in-lightning-expereience/
+
+    display the Parent’s Related list into Child Record Page using related list single component.
+       https://merfantz.com/blog/how-to-display-the-parent-related-list-into-child-record-page-in-lighting/
+
+8. Full View: A data-dense view that focuses on details and related lists and puts all the information on the same page.
+   Grouped View: Divides record information into groupings across multiple regions and tabs.
+   set-up -> user settings -> Record Page Settings
+
+9. SHOWING A RELATED LIST BASED ON USER PROFILE
+   https://salesforcediaries.com/2019/06/20/showing-a-related-list-based-on-user-profile-in-lightning-experience/
+
+10: Adding a new related list
+    https://www.marksgroup.net/blog/salesforce-com-adding-a-related-list/
+
+11. How to button to related list
+    http://ways2salesforce.com/index.php/2020/04/02/add-custom-button-on-related-list-in-lightning/
+    https://focusonforce.com/configuration/salesforce-list-buttons-javascript-example/
+    https://focusonforce.com/configuration/lightning-replacement-to-javascript-buttons/
+
+12: collapsible related list possible by using 2 components together (Accordion and Related List - Single)
+        https://salesforcediaries.com/2019/03/12/collapsible-related-list-in-lightning-experience/
+
+13: How to use formula field to create actions on the related list.
+    http://www.patricksteffens.com/create-a-dynamic-hyperlink-formula-in-salesforce/
+    https://www.levelupsalesforce.com/link-salesforce-formula-field-to-record
+
+    
+
+
+
+Limitations
+-----------
+1. Number of columns we can add 10
+   3 appraches to display 10 fields: https://salesforcediaries.com/2019/03/26/more-than-four-fields-in-related-list-in-lightning-experience/
+   display more than 10 fields:      https://salesforcethinkers.home.blog/2019/08/27/add-more-than-four-fields-to-related-list-in-lightning-experience/
+                                     https://salesforcethinkers.home.blog/2019/08/20/add-more-fields-to-related-lists-salesforce/
+
+   work around to add more than 10 fields: https://silverlinecrm.com/blog/help-training/salesforce-hack-how-to-add-more-fields-to-related-lists/
+   
+   Copy and Paste VFEditor.MAX_RELATED_LIST_COLUMNS = x at the console prompt and press Enter. 
+   You may replace the letter x with the number of Columns (i.e. = 20) that you want to display. 
+
+2. Related List doesn't have bulk supported quick actions like (mass update, mass delete, mass transfer etc...)
+   work around-1: we can buid custom quick actions to support this.
+   work around-2: we can create mass quick actions for list view. (some times it is very useful to perform mass actions)
+                    https://dazeworks.com/appyninja/mass-update-edits-delete/
+                    https://www.biswajeetsamal.com/blog/salesforce-mass-quick-actions-in-lightning-experience/
+                    https://www.mstsolutions.com/technical/mass-quick-actions-in-lightning-experience/
+                    https://cloudmantras.com/2020/06/17/how-to-use-mass-quick-action-in-salesforce/
+                    https://www.mstsolutions.com/technical/mass-edit-from-list-views-in-salesforce/#:~:text=You%20can%20also%20use%20the,Edit%20button%20and%20click%20Save.
+                    https://forcepanda.wordpress.com/2020/01/28/how-to-mass-update-or-delete-child-records-from-related-lists-in-lightning-using-flows/
+
+3. doesn't support inline editing.
+   Need to develop custom LWC.
+   https://cafeforce.com/related-list-inline-edit-lightning-component-salesforce/
+
+
+4. we can't group the related records by some criteria (Ex: Active vs Inactive)
+   work around: create multiple lookup fields to create multiple related lists.
+   https://www.slideshare.net/douglascayers/salesforce-filtered-related-lists-without-code-60145391
+   https://www.appshark.com/blog/filtered-related-lists/
+
+ 
+5. Clone with Related List
+    https://salesforcespace.blogspot.com/2016/03/clone-with-related-list.html
+
+
+Note-1: we can Break up Salesforce Record Detail fields into Tabs
+https://www.youtube.com/watch?v=pmjP6HZDEes
+
+
+Note-2: Dynamic forms for Standard objects
+        The idea here is to use a Quick Action and Related Record standard lightning component on the lightning record page with conditional visibility.
+        https://forcepanda.wordpress.com/2020/11/10/workaround-dynamic-forms-for-standard-objects/
+
+
+
+Custom Related list reusable component
+----------------------------------------
+1. https://developersvoyage.com/custom-related-list-reusable-component/
+2. https://github.com/CharlesHGong/lightningRelatedListWithFilter
+

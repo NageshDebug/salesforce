@@ -1,0 +1,12 @@
+<template>
+    <ul>
+        <template for:each={records} for:item="thisRecord">
+            <li key={thisRecord.id} class="record">
+                <template if:true={thisRecord.isSelected}>
+                    <div class="selected"></div>
+                </template>
+                <div>{thisRecord.name}</div>
+            </li>
+        </template>
+    </ul>
+</template>

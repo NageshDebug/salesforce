@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Condition based Hide/show. Type 'Hello' in textbox." icon-name="custom:custom16">
+        <ul class="slds-m-around_medium">
+            <lightning-input type="text" name="title" label="Enter your Name:" onkeyup={changeHandler}
+                value={inputText}></lightning-input>
+            <template if:true={checkText}>
+                <h3>Hello salesforce</h3>
+            </template>
+        </ul>
+    </lightning-card>
+</template>

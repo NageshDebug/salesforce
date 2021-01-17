@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="HelloConditionalRendering" icon-name="custom:custom14">
+        <div class="slds-m-around_medium">
+            <lightning-input type="checkbox" label="Show Checkbox details" onchange={handleChange}></lightning-input>
+            <template if:true={areDetailsVisible}>
+                <div class="slds-m-vertical_medium">
+                    These are the checkbox details!
+                </div>
+            </template>
+        </div>
+
+        <div class="slds-m-around_medium">
+            <lightning-input type="toggle" label="Show Toggle details" onchange={handleChange1}></lightning-input>
+            <template if:true={areDetailsVisible1}>
+                <div class="slds-m-vertical_medium">
+                    These are the toggle details!
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

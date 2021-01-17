@@ -1,0 +1,47 @@
+<template>
+    <lightning-card>
+        <lightning-record-edit-form object-api-name='Account' onsuccess={handleSuccess} onerror={handleError}>
+            <header class="slds-modal__header">
+                <div class="slds-text-heading_medium slds-modal__title slds-hyphenate">New Account Details</div>
+            </header>
+            <div class="slds-page-header">
+                <div class="slds-page-header__row">
+                    Account Detail
+                </div>
+            </div>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-12">
+                    <span></span>
+                </div>
+                <div class="slds-col slds-size_5-of-12">
+                    <span>
+                        <lightning-input-field field-name="Name"></lightning-input-field>
+                        <lightning-input-field field-name="AccountNumber"></lightning-input-field>
+                        <lightning-input-field field-name="AnnualRevenue"></lightning-input-field>
+                        <lightning-input-field field-name="AccountSource"></lightning-input-field>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_5-of-12">
+                    <span>
+                        <lightning-input-field field-name="BillingAddress"></lightning-input-field>
+                        <lightning-input-field field-name="CustomerPriority__c"></lightning-input-field>
+                        <lightning-input-field field-name="CleanStatus"></lightning-input-field>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_1-of-12">
+                    <span></span>
+                </div>
+            </div>
+            <div class="slds-m-top_large slds-grid slds-grid_align-center slds-align–absolute-center">
+                <lightning-button variant="brand" label="Cancel" type="cancel" onclick={handleCancel}>
+                </lightning-button>
+                &nbsp;&nbsp;
+                <lightning-button type="submit" variant="brand" label="Save"></lightning-button>
+                &nbsp;&nbsp;
+                <lightning-button type="submit" variant="brand" label="Save & New" onclick={saveAndNewClick}>
+                </lightning-button>
+            </div>
+            <br /><br />
+        </lightning-record-edit-form>
+    </lightning-card>
+</template>

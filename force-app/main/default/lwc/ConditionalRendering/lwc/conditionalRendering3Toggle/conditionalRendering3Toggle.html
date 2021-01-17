@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="toggle demo" icon-name="custom:custom16">
+        <ul class="slds-m-around_medium">
+            <button class="slds-button slds-button_brand" onclick={toggleHandler}>
+                Click me to toggle the text
+            </button>
+            <template if:false={toggleText}>
+                <h3>let's play hide and seek!!</h3>
+            </template>
+        </ul>
+    </lightning-card>
+</template>

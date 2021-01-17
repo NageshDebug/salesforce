@@ -1,0 +1,14 @@
+if the service takes more than > 2 min, we need to convert synchronous call into asyn calls.
+HTTPResponse getBody limit is 3MB.
+The default timeout is 10 seconds. The minimum is 1 millisecond and the maximum is 120 seconds. I.e 2 mints
+
+
+
+The maximum cumulative timeout for callouts by a single Apex transaction is 120 seconds. This time is additive across all callouts invoked by the Apex transaction.
+
+
+socket timeout vs connection timeout vs read timeout
+
+
+
+

@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Conditional TEMPLATE IF:TRUE">
+        <div class="slds-p-around_small">
+            <lightning-combobox name="selectAccountName" label="Select Account to display:" value={currentAccount}
+                placeholder="SelectAccount" options={listValues} onchange={accountChanged}></lightning-combobox>
+
+            <br />
+
+            <template for:each={lstAccounts} for:item="acc">
+                <c-conditional-rendering6-child key={acc.Name} selected-account={currentAccount} account={acc}>
+                </c-conditional-rendering6-child>
+            </template>
+        </div>
+    </lightning-card>
+</template>

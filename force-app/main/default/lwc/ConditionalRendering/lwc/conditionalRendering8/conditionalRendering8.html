@@ -1,0 +1,74 @@
+<template>
+
+    <lightning-card title="Example for Apex wire Method to a Property" icon-name="custom:custom63">
+        <div class="slds-m-around_medium">
+            <template if:true={accountObj.data}>
+                <template for:each={accountObj.data} for:item="account">
+                    <p key={account.Id}>{account.Name}</p>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+
+    <lightning-card title="Example for Apex wire Method to a Function" icon-name="custom:custom63">
+        <div class="slds-m-around_medium">
+            <template if:true={accountNames}>
+                <template for:each={accountNames} for:item="accountdata">
+                    <p key={accountdata.Id}>{accountdata.Name}</p>
+                </template>
+            </template>
+            <template if:true={errors}>
+                {errors}
+            </template>
+        </div>
+    </lightning-card>
+
+    <lightning-card title="Example for Apex Imperative Method" icon-name="custom:custom63">
+        <div class="slds-m-around_medium">
+            <p class="slds-m-bottom_small">
+                <b>Click on button to get accounts</b><br />
+                <lightning-button variant="brand" label="Get Accounts" title="Brand action" onclick={handleLoad}>
+                </lightning-button>
+            </p>
+
+            <template if:true={accounts}>
+                <template for:each={accounts} for:item="account">
+                    <p key={account.Id}>{account.Name}</p>
+                </template>
+            </template>
+
+            <template if:true={error}>
+                {error}
+            </template>
+
+        </div>
+    </lightning-card>
+
+    <lightning-card title="Example to Search Records" icon-name="standard:account">
+
+        <lightning-layout multiple-rows="true" vertical-align="end">
+            <lightning-layout-item size="12" small-device-size="10" medium-device-size="8" large-device-size="6"
+                padding="around-small">
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <lightning-input type="text" label="Enter Account Name to Search" value={strSearchAccName}
+                            onchange={handleAccountName}>
+                        </lightning-input>
+                    </div>
+                </div>
+            </lightning-layout-item>
+
+            <lightning-layout-item size="12" small-device-size="2" medium-device-size="2" large-device-size="2"
+                padding="around-small">
+                <lightning-button label="Search" variant="brand" onclick={handleSearch}>
+                </lightning-button>
+            </lightning-layout-item>
+        </lightning-layout><br />
+
+        <div if:true={searchData}>
+            <lightning-datatable data={searchData} columns={columns} key-field="id" hide-checkbox-column="true">
+            </lightning-datatable>
+        </div>
+    </lightning-card>
+
+</template>

@@ -1,0 +1,18 @@
+<template>
+    <lightning-record-edit-form record-id={recordId} object-api-name={objectApiName} onsuccess={handleSuccess}>
+        <lightning-messages></lightning-messages>
+        <div class="'slds-box slds-theme_default slds-m-around_medium">
+            <!--Iterate the field for the selected object in design attribute and the field list will be 
+                    fetced from custom meta data-->
+            <template for:each={fieldList} for:item='fieldName'>
+                <lightning-input-field key={fieldName} field-name={fieldName}></lightning-input-field>
+
+            </template>
+
+            <div class="slds-m-top_medium">
+                <lightning-button variant="brand" type="submit" name="save" label={buttonLabel}>
+                </lightning-button>
+            </div>
+        </div>
+    </lightning-record-edit-form>
+</template>

@@ -1,0 +1,9 @@
+<template>
+    <lightning-card variant="Narrow" title="Account Info" icon-name="standard:account">
+        <template if:true={fields}>
+            <lightning-record-form record-id={recordId} object-api-name={objectApiName} columns="2" fields={fields}
+                mode="view" onsuccess={handleSuccess} onsubmit={handleSubmit}>
+            </lightning-record-form>
+        </template>
+    </lightning-card>
+</template>

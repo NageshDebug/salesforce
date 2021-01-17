@@ -1,0 +1,11 @@
+<template>
+    <template if:true={showCard}>
+        <lightning-card title={account.Name}>
+            <p class="slds-p-horizontal_large">
+                Email: {account.Email}
+                <br />
+                Other Details
+            </p>
+        </lightning-card>
+    </template>
+</template>

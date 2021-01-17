@@ -1,0 +1,13 @@
+<template>
+
+    <lightning-card title="Flexible Table - CMT" variant="base" icon-name="standard:account">
+        <lightning-datatable key-field="id" data={processedDataList} show-row-number-column hide-checkbox-column
+            columns={columnList}>
+        </lightning-datatable>
+        <template if:true={enableViewMore}>
+            <div data-id="viewMore" class="viewMore slds-align_absolute-center slds-var-p-around_medium">
+                <a href="" onclick={loadMoreData}>View More</a>
+            </div>
+        </template>
+    </lightning-card>
+</template>
