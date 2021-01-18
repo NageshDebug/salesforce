@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="Showing Static Record (Wire * UIRecordAPI)">
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                User
+                <template if:true={userObj.data}>
+                    <div class="slds-m-around_medium">
+                        <p>{name}</p>
+                        <p>{alias}</p>
+                        <p>
+                            <lightning-formatted-email value={email}></lightning-formatted-email>
+                        </p>
+                    </div>
+                </template>
+                <template if:true={userObj.error}>
+                    {userObj.error}>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

@@ -1,0 +1,114 @@
+1. @wire To read Salesforce data, Lightning web components use a reactive wire service. 
+    When the wire service provisions data, the component rerenders. 
+    Components use @wire in their JavaScript class to specify a wire adaptor or an Apex method.
+
+2. The wire service is invoked whenever a value is available, which can be before or after the component is connected or rendered.
+
+3. To use apex methods via @wire, you must annotate it with cacheable=true.
+
+4. Assess your use case properly before deciding to use @wire
+    - Check if, Base Lightning component, like lightning-record-form, lightning-record-view-form, or lightning-record-edit-form can be used
+    - If not, check for @wire Adapters and functions
+    - If both the above don’t serve the purpose, you can write apex code
+
+
+What is the matter with Provisions over the Request?
+------------------------------------------------------
+Whenever wire service gets into the action, it Provisions the data instead of requesting or fetching.
+It means that if data already exists in the client cache then it does not request to the server. 
+If it does not find the data in client cache then a request will be made using the Wire Adapters.
+
+
+
+@wire service parameters
+-------------------------
+Configuration object property values can be either strings or references to objects and fields imported from @salesforce/schema. 
+Properties in the adapterConfig object can’t be undefined. If a property is undefined, the wire service doesn’t provision data. 
+
+v.v.Imp: Don’t update a wire adapter configuration object property in renderedCallback() as it can result in an infinite loop.
+
+
+Reactive Adapter Configuration Object Property: 
+-----------------------------------------------
+We pass the Adapter Configuration to the Wire Adapter module. This property will be reactive. We need to use a $ prefix in the property. 
+Whenever the value of the property gets changed the wire service automatically call the wire adapter.
+
+i.e If something get changed in the $ property from adapter configuration then wire service get invoked. Otherwise, it does not get invoked
+
+In the below example, $recordId is a reactive property. If something is changed in the recordId then getRecord will be called automatically.
+Ex:
+recordId;
+@wire(getRecord, { recordId: ‘$recordId’, fields })
+contact;
+
+
+
+@wire property vs @wire method
+------------------------------
+1. Debugging: @wire method is very useful for debugging (whether Apex controller provision the data or not)
+2. Exception Handling: @wire method is useful to handle the client side exception handling using javascript.
+3. Data tranformation: @wire method is very useful to transform (convertor) the data (nested lists or nested objects) according to our requirements before displaying in UI.
+                    It helps to reduce the nested iterations in HTML
+4. Nested server calls: @wire method is very useful to call server methods in sequence (Ex: method2 will call after method1)
+
+Note: If we are using @Wire with the property then the property becomes the reactive private property. (Same as property defined with @track decorator)
+
+
+
+Call a method imperatively : 
+-----------------------------
+If an Apex method is not annotated with cacheable=true, you must call it imperatively
+
+
+WIRE VS IMPERATIVELY
+--------------------
+1. As per Lightning component best practices use @wire over imperative method invocation. @wire fits nicely in the overall Lightning Web Component reactive architecture. 
+2. Salesforce is building some performance enhancement features that are only available with @wire. But there are a few use cases,, that require you to use imperative Apex.
+3. @wire is a reactive service. When the wire service provisions data, the component re-renders. if you want it to be fired on-demand, then it's better to go with the imperative approach.
+4. To use apex methods via @wire, you must annotate it with cacheable=true. If an Apex method is not annotated with cacheable=true, you must call it imperatively.
+5. To perform CRUD operations, we need to use Imperative calls
+
+
+
+
+Use Storable Action (OR) Enable Client-Side Caching
+-----------------------------------------------------
+Use Storable Action, It will reduces call to Server. Syntax - @AuraEnabled(cacheable=true)
+
+Caution: A storable action might result in no call to the server. Never mark as storable an action that updates or deletes data.
+For storable actions in the cache, the framework returns the cached response immediately and also refreshes the data if it’s stale. Therefore, storable actions might have their callbacks invoked more than once: first with cached data, then with updated data from the server.
+
+1. Annotating the Apex method with @AuraEnabled(cacheable=true) improves the run time performance.
+2. To set cacheable=true, a method must only get data, it can’t mutate (change) data.
+3. Marking a method as cacheable improves component’s performance by quickly showing cached data from client-side storage without waiting for a server trip.
+4. If the cached data is stale, the framework retrieves the latest data from the server. Caching is especially beneficial for users on high latency, slow, or unreliable connections.
+5. To use @wire to call an Apex method, you must set cacheable=true
+
+
+Reuse apex calls without @wire : 
+------------------------------------
+    - @wire accepts defined adapters. 
+    - If you wish to reuse the apex calling we can do it using connected callbacks.
+    - Connected callbacks are called when the element is inserted into the DOM. 
+    - It is generally used when we want our code to run only one time, to prevent it from running twice. 
+    - For example: when you hit the save button multiple times then your record will get saved multiple time because your code will run multiple times. 
+
+
+
+
+
+Summary
+--------
+For below three approaches we don’t need to write apex to do get data:
+    Use Lightning Data Service to access Salesforce Data
+    Use Base Lightning Component to work with Salesforce records
+    Use Wire Service to get Salesforce Data
+
+Other approaches are used to retrieve for complex set of data:
+    Use Apex Method in Lightning Web Component
+    Use API from Apex
+    Use of composition to make long running callouts
+
+
+
+

@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title="Apex Imperative Method With Parameters">
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <lightning-layout-item flexibility="grow">
+                    <lightning-input label="Enter Account Name" type="search" onchange={searchContact}
+                        value={searchKey}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-p-left_xx-small">
+                    <lightning-button label="Search" onclick={doSearch}></lightning-button>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-m-bottom_small">
+                    <template if:true={contacts}>
+                        <template for:each={contacts} for:item="contact">
+                            <p key={contact.Id}>
+                                {contact.Name}
+                            </p>
+                        </template>
+                    </template>
+                    <template if:true={error}>
+                        {error}>
+                    </template>
+                </lightning-layout-item>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

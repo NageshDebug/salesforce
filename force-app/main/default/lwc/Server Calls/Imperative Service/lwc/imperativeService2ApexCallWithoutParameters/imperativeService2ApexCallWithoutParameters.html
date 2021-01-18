@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Apex Imperative Method">
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <template if:true={contacts}>
+                    <template for:each={contacts} for:item="contact">
+                        <p key={contact.Id}>
+                            {contact.Name}
+                            <lightning-formatted-email value={contact.Email} class="slds-m-left_medium">
+                            </lightning-formatted-email>
+                        </p>
+                    </template>
+                </template>
+                <template if:true={error}>
+                    {error}
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

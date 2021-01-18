@@ -1,0 +1,8 @@
+<template>
+    <lightning-card variant="Narrow" title="Hello" icon-name="standard:account">
+        <template if:true={record.data}>
+            {record.data.fields.Name.value}- {record.data.fields.BillingCity.value}
+        </template>
+    </lightning-card>
+
+</template>

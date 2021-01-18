@@ -1,7 +1,7 @@
 public with sharing class AccountController {
   @AuraEnabled(cacheable=true)
-  public static List<Account> getAccountList() {
-    return [SELECT Id, Name, AnnualRevenue, Industry, Phone FROM Account];
+  public static List<Account> getAccountsList() {
+    return [SELECT Id, Name, AnnualRevenue, Industry, Phone, Fax FROM Account];
   }
 
   @AuraEnabled(cacheable=true)
@@ -46,27 +46,26 @@ public with sharing class AccountController {
   }
 
   @AuraEnabled(cacheable=true)
-    public static List<Account> searchAccountNameMethod (String accStrName, String accStrPhone, String accStrWebsite, String accStrIndustry, String accStrDescription){
-        String keyNameString = '%' +  accStrName + '%';
-        return [Select Id, Name, Phone, Website, Industry, Description From Account Where Name like:keyNameString];
-     } 
+  public static List<Account> searchAccountNameMethod(String accStrName, String accStrPhone, String accStrWebsite, String accStrIndustry, String accStrDescription) {
+    String keyNameString = '%' + accStrName + '%';
+    return [SELECT Id, Name, Phone, Website, Industry, Description FROM Account WHERE Name LIKE :keyNameString];
+  }
 
-     /** Method to implement Apex Wire Method to a property, apex wire method to a function and 
-    Call an Apex Method Imperatively  **/
-    @AuraEnabled(cacheable=true)
-    public static List<Account> getAccountDataList(String searchKey) {
-        
-        List<Account> accObjList = [SELECT  Id, Name From Account Limit 5];
-        
-        return accObjList;
-    } 
- 
-    /** Method to get Account in search result **/
-    @AuraEnabled(cacheable=true)
-    public static List<Account> getAccountList(String searchKey) {
-        searchKey = '%' + searchKey + '%';
-        List<Account> accList = [SELECT  Id, Name, Industry, Phone, Type From Account WHERE Name LIKE :searchKey];
+  /** Method to implement Apex Wire Method to a property, apex wire method to a function and
+   Call an Apex Method Imperatively  **/
+  @AuraEnabled(cacheable=true)
+  public static List<Account> getAccountDataList(String searchKey) {
+    List<Account> accObjList = [SELECT Id, Name FROM Account LIMIT 5];
 
-        return accList;
-    }
+    return accObjList;
+  }
+
+  /** Method to get Account in search result **/
+  @AuraEnabled(cacheable=true)
+  public static List<Account> getAccountList(String searchKey) {
+    searchKey = '%' + searchKey + '%';
+    List<Account> accList = [SELECT Id, Name, Industry, Phone, Type FROM Account WHERE Name LIKE :searchKey];
+
+    return accList;
+  }
 }

@@ -1,0 +1,17 @@
+<template>
+    <div class="slds-theme_default slds-box">
+        <lightning-card title="Design Attribute Demo" icon-name="custom:custom19">
+            <ul>
+                <li> Emp Name: <b>{strName}</b></li> {listOfFields}
+            </ul>
+            <template if:true={listOfFields}>
+                <lightning-record-form record-id={recordId} object-api-name={objectApiName} columns="2" mode="edit"
+                    fields={listOfFields} onload={handleSuccess}>
+                    <template for:each={listOfFields} for:item="fld">
+                        <lightning-input-field key={fld} field-name={fld}></lightning-input-field>
+                    </template>
+                </lightning-record-form>
+            </template>
+        </lightning-card>
+    </div>
+</template>
