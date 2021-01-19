@@ -1,0 +1,11 @@
+<template>
+    <lightning-card variant="Narrow" title="Hello" icon-name="standard:account">
+        <template if:true={hasPicklistValues}>
+            <select>
+                <template for:each={picklistValues.data.values} for:item="entry">
+                    <option key={entry.value} value={entry.label}>{entry.label}</option>
+                </template>
+            </select>
+        </template>
+    </lightning-card>
+</template>

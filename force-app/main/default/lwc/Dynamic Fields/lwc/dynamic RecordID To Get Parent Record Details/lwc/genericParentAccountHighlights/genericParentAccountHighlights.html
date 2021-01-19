@@ -1,0 +1,11 @@
+<template>
+    <template if:true={isMissingFieldName}>
+        <div class="slds-theme_default slds-box">
+            This component has not been configured properly. Please contact your system administrator.
+        </div>
+    </template>
+    <template if:true={accountId}>
+        <c-account-highlights record-id={accountId}>
+        </c-account-highlights>
+    </template>
+</template>

@@ -68,4 +68,11 @@ public with sharing class AccountController {
 
     return accList;
   }
+
+  @AuraEnabled
+  public static List<Account> getAccountById(Id accountId) {
+    List<Account> accList = [SELECT Id, Name, Industry, Phone, Type FROM Account WHERE Id = :accountId];
+
+    return accList;
+  }
 }

@@ -1,0 +1,9 @@
+<template>
+    <lightning-card variant="Narrow" title="Hello" icon-name="standard:account">
+        <template if:false={hasAccountResponse}>
+            {accountDetails}
+        </template>
+
+        {accountDetails}
+    </lightning-card>
+</template>
