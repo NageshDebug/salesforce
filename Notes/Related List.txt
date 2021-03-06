@@ -78,7 +78,7 @@ Best Practices
 10: Adding a new related list
     https://www.marksgroup.net/blog/salesforce-com-adding-a-related-list/
 
-11. How to button to related list
+11. How to add button to related list
     http://ways2salesforce.com/index.php/2020/04/02/add-custom-button-on-related-list-in-lightning/
     https://focusonforce.com/configuration/salesforce-list-buttons-javascript-example/
     https://focusonforce.com/configuration/lightning-replacement-to-javascript-buttons/
