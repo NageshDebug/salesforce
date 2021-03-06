@@ -1,0 +1,10 @@
+<template>
+    <lightning-card variant="Narrow" title="Hello" icon-name="standard:account">
+        <lightning-input type="FirstName" value='{firstName}' variant="standard" name="fName" label="FirstName"
+            placeholder="Enter FirstName..." onchange={onChangeFirstName}></lightning-input>
+        <lightning-input type="LastName" value='{lastName}' variant="standard" name="lName" label="LastName"
+            placeholder="Enter LastName ..." onchange={onChangeLastName}></lightning-input>
+        <hr />
+        FullName: {getFullName}
+    </lightning-card>
+</template>

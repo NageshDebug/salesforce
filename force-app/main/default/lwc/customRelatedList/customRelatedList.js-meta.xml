@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="demoComposition">
+    <apiVersion>50.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+      <targetConfigs>   
+        <targetConfig targets="lightning__RecordPage">
+            <property name="metaDatakey" label="Metadata Record API Name" type="String" default=""/>
+            <property name="relationshipFieldApiName" label="Parent Record Relationship Name" type="String" default=""/>
+            <property name="dynamicCondition" type="String" default="" label="Where condition to filter the records"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

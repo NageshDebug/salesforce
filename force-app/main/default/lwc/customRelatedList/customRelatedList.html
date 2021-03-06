@@ -1,0 +1,27 @@
+<template>
+
+    <lightning-card title={ComponentTitle} icon-name={CmpHeaderIcon}>
+        <template if:true={HeaderButtons}>
+            <template for:each={HeaderButtons} for:item="button">
+                <lightning-button key={button.label} value={button.name} label={button.label}
+                    onclick={handleHeaderButtonAction} slot="actions"></lightning-button>
+            </template>
+        </template>
+        <p class="slds-p-horizontal_small">
+            <lightning-datatable key-field="id" data={data} columns={columns} hide-checkbox-column="true"
+                min-column-width="80px" onrowaction={handleRowAction} onsort={updateColumnSorting} sorted-by={sortedBy}
+                sorted-direction={sortedDirection}>
+            </lightning-datatable>
+        </p>
+
+        <p slot="footer">
+            <template if:true={showFooter}>
+                <a onclick={showAllRecords}>{ViewRecordLabel}
+                    <span class="slds-assistive-text">entity type</span>
+                </a>
+            </template>
+        </p>
+
+    </lightning-card>
+
+</template>

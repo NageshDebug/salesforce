@@ -16,6 +16,9 @@ console.log(blog);
 
 
 //New Style
+var { lastName } = person;
+console.log(lastName);
+
 var { lastName, country, blog } = person;
 console.log(lastName);
 console.log(country);

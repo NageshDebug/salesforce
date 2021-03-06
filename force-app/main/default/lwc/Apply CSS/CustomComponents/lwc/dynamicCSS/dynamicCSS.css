@@ -1,0 +1,9 @@
+.selected-item-shadow {
+  border: 1px solid #1589ee;
+  box-shadow: 0 4px 8px 0 #ee159b;
+}
+
+[data-level="Primary"] {
+  border: 1px solid #ee1c15;
+  box-shadow: inset 0 0 0 1px 8px 0 #4f15ee;
+}
