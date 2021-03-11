@@ -100,3 +100,58 @@ SampleBatchScheduler m = new SampleBatchScheduler();
 String sch = '20 30 8 10 2 ?';
 String jobID = system.schedule('SampleBatchScheduler Job', sch, m);
 ---------------------------------------------------------------------------------
+@isTest
+public class OpportunitiesServiceTest {
+ 
+   @isTest
+   private static void discountShouldBeZero(){
+       System.assertEquals(20, createOpportunity(0).Discount__c);
+   }
+ 
+   @isTest
+   private static void discountShouldBeTen(){
+       System.assertEquals(10, createOpportunity(15).Discount__c);
+   }
+ 
+   @isTest
+   private static void discountShouldBeTwenty(){
+       System.assertEquals(20, createOpportunity(25).Discount__c);
+   }
+ 
+   @isTest
+   private static void discountShouldBeFifty(){
+       System.assertEquals(50, createOpportunity(60).Discount__c);
+   }
+}
+----------------------------------------------------------------------------------------------
+@RestResource(urlMapping=’/Account/*’)
+global with sharing class MyRestResource {
+    @HttpGet
+    global static Account getRecord() {
+        // Add your code
+    }
+
+    // Get Method
+    @HTTPGet
+    global static List<Contact> getContactIdAndNames() {
+        // Initializing the request parameter with the incoming request
+        RestRequest contactRequest = RestContext.request;
+        // Getting the request URI
+        String contactRequestURI = contactRequest.requestURI;
+        // Getting the limit from the request URI
+        Integer contactLimit = Integer.valueOf(contactRequestURI.substring(contactRequestURI.lastIndexOf('/') + 1));
+        // Querying contacts
+        List<Contact> contactList = [SELECT Id, Name FROM Contact LIMIT :contactLimit];
+        // Returning the contacts in the response
+        return contactList;
+    }
+}
+---------------------------------------------------------------------------------------------
+global with sharing class ContactResource {
+    webservice static List<Contact> getContactIdAndNames(Integer contactLimit) {
+        // Querying contacts
+        List<Contact> contactList = [SELECT Id, Name, Birthdate, Phone FROM Contact LIMIT :contactLimit];
+        // Returning the contacts in the response
+        return contactList;
+    }
+}
