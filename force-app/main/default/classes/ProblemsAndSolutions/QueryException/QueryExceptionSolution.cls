@@ -20,6 +20,8 @@ public with sharing class QueryExceptionSolution {
                                                             10.If you use IN operator, make sure that the field is indexed.
                                                             11.Empty your Organization Recycle Bin.
                                                             12. Make sure data skew doesn't exist.
+                                                            13. Try to avoid sub queries
+                                                            14. Prefer SOSL over SOQL
                         Note: Salesforce also supports custom indexes on custom fields, with the exception of multi-select picklists, text area (long), 
                               text area (rich), non-deterministic formula fields, and encrypted text fields.
             Solution-2: Serverside Pagination using OFFSET and LIMIT 
@@ -76,5 +78,23 @@ public with sharing class QueryExceptionSolution {
                 Solution: If the list contains more than 200 records, the error will occur. 
                           So, in this case, make sure the following part doesn't contain more than 200 records.
                           RecordId IN :this.IdCache
+
+        Case-4: If you attempt to lock a record currently locked by another client, your process waits for the lock to be released before acquiring a new lock. 
+                If the lock isn’t released within 10 seconds, you will get a QueryException. 
+                
+                Similarly, if you attempt to update a record currently locked by another client and the lock isn’t released within 10 seconds, 
+                you will get a DmlException.
+
+        Case-5: Query Exception: List has no rows for assignment to s-objec.
+                "System.Query Exception: List has no rows for assignment to sobject" comes when we query the Object it has no records to fetched, and we are 
+                trying to assign to sobject it will throw this error.So simply use List to avoid  it.
+
+                For Example:
+                Account a = [SELECT Name from Account WHERE Id=: strld];
+
+                and an exception was thrown: System.QueryExceptoin: List has no rows for assignment to SObject.
+                Here is the mistake I made and how to fix it:
+
+                List<Account> lst = [SELECT Name from Account WHERE Id=: strld];
      */
 }
