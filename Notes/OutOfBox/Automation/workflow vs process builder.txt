@@ -1,0 +1,44 @@
+Process can invoke another process
+Process can invoke flow
+Process can kick off the approval process
+Process can publish and consume the platform events
+
+In Workflow, there’s no way to determine which order workflow rules run in. So there’s always a risk of one rule overwriting what another did. In Process Builder, we can determine the exact evaluation order of process’ criteria.
+Order of execution of actions is guaranteed (as per the actions list)
+Create/update related records
+
+Probably the biggest limitation at the moment is the inability to set filters to define the set of child records that should be updated.
+
+workflows
+1. workflow actions can be reusable
+2. workflow rules executes independent of FLS
+3. external system integration (outbound messages)
+	The order in which individual actions and types of actions are executed is not guaranteed. However, field update actions are executed first, followed by other actions.
+
+	Let If you create four actions
+
+	1 New Task
+	2 New Email
+	3 New Field Update
+	4 New Outbound Message
+
+Then Field Update must execute first.
+4. The problem with the workflow rules is the order which means if you have multiple workflows rule in the single object we can not control the ordering of execution.
+
+4. fully bulkified
+5. skip validations rules after field update 
+6. Process Builder Scheduled Action does not reevaluate the criteria when the update action is not via user frontend interface (will not respect update via backend process like Apex, Workflow, and etc). Meanwhile, Time-Based Workflow respects and reevaluates any kind of update action.
+7. 
+we can not create the other object record from the workflow while evaluation criteria get executed.
+We can not update the parent or child record of the object record in which we add the workflow rules.
+
+
+Limitations of workflow
+With workflow, salesforce offers only 4 types of actions.
+Workflow rules get evaluated based on the creation or update of the record not on deleting the record.
+One can create more than one workflow in a single object but you cannot predict the order in which the workflow rules get executed.
+Workflows are not available in professional edition of salesforce.com
+
+
+
+
