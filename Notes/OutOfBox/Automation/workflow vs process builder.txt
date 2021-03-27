@@ -1,4 +1,4 @@
-Process can invoke another process
+﻿Process can invoke another process
 Process can invoke flow
 Process can kick off the approval process
 Process can publish and consume the platform events
@@ -27,7 +27,8 @@ Then Field Update must execute first.
 
 4. fully bulkified
 5. skip validations rules after field update 
-6. Process Builder Scheduled Action does not reevaluate the criteria when the update action is not via user frontend interface (will not respect update via backend process like Apex, Workflow, and etc). Meanwhile, Time-Based Workflow respects and reevaluates any kind of update action.
+6. Process Builder Scheduled Action does not reevaluate the criteria when the update action is not via user frontend interface (will not respect update via backend process like Apex, Workflow, and etc). 
+Meanwhile, Time-Based Workflow respects and reevaluates any kind of update action.
 7. 
 we can not create the other object record from the workflow while evaluation criteria get executed.
 We can not update the parent or child record of the object record in which we add the workflow rules.
