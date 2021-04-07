@@ -1,0 +1,75 @@
+When to use a Batchable Apex?
+If it is a long-running complex process then you should go for Batchable Apex and you can have an option to schedule the batch to run at a customized time. Or,
+If you have a lot of records to process, for example, data cleansing or archiving, Batch Apex is probably your best solution.
+
+Use Database.Stateful only if you want to share instance member variable value across the whole job, otherwise it will impact the efficiency of the overall job performance.
+
+Use batch apex if the number future method invocation is reasonably large. Avoid using a large number of future methods.
+
+If one batch fails to process successfully, all other successful batch transactions aren’t rolled back.
+
+It can process upto 50 million records in asynchronous mode.
+
+5 concurrent jobs are allowed to run at a time and future methods are not allowed in Batch class.
+
+
+Let’s say, I have 150 Batch jobs to execute, Will I be able to queue them in one go?
+------------------------------------------------------------------------------------
+Once you run Database.executeBatch, the Batch jobs will be placed in the Apex flex queue and its status becomes Holding. The Apex flex queue has the maximum number of 100 jobs, Database.executeBatch throws a LimitException and doesn’t add the job to the queue. So atmost 100 jobs can be added in one go.
+
+Also, if Apex flex queue is not enabled, the Job status becomes Queued, Since the concurrent limit of the queued or active batch is 5, so atmost 5 batch jobs can be added in one go.
+
+
+
+Can I Use FOR UPDATE in SOQL using Database.QueryLocator?
+----------------------------------------------------------
+No, We can’t. It will through an exception stating that “Locking is implied for each batch execution and therefore FOR UPDATE should not be specified”
+
+
+Can I query related records using Database.QueryLocator?
+---------------------------------------------------------
+Yes, You can do subquery for related records, but with a relationship subquery, the batch job processing becomes slower. A better strategy is to perform the subquery separately, from within the execute method, which allows the batch job to run faster.
+
+
+Let’s say Record A has to be processed before Record B, but Record B came in the first Batch and Record A came in the second batch. The batch picks records which are unprocessed every time it runs. How will you control the processing Order?
+----------------------------------------------------------------
+The Processing order can’t be controlled, but we can bypass the record B processing before Record A. We can implement Database.STATEFUL and use one class variable to track whether Record A has processed or not. If not processed and Record B has come, don’t process Record B. After all the execution completes, Record A has already been processed so Run the batch again, to process Record B.
+
+
+
+Let’s say, we have run an apex batch to process 1000 records, and It is running with batch size 200. Now, while doing DML on 395th record, an error occurred, What will happen in that case?
+-------------------------------------------------------------
+In batches, If the first transaction succeeds but the second fails, the database updates made in the first transaction are not rolled back.
+Since the batch size is 200, so the first batch will be processed completely and all data will be committed to DB. In seconds batch, if we are committing records using normal DML statements like insert, update than the whole batch will be rollbacked. So records 201 to 400 will not be processed.
+
+Note: If we use the Database DML operations like Database.insert with AllOrNone as false, then partial commit can happen and only 398th record will not be processed in that batch and total 199 records will be processed. Also, the other batch execution will not gonna be hampered.
+
+
+
+How to use Aggregate queries in Batch Apex
+--------------------------------------------
+Aggregate queries don’t work in Batch Apex because aggregate queries doesn’t support queryMore(). They run into the error ‘Aggregate query does not support queryMore(), use LIMIT to restrict the results to a single batch’
+To fix this error what we should do.
+
+1. Create an Apex class implements Iterator<AggregateResult>.
+2. Create an Apex class implements Iterable<AggregateResult>.
+3. Implementing to Database.Batchable<AggregateResult>, and Using Iterable at start execution in Batch Apex.
+
+
+
+Can I change the order of already queued Batch Jobs?
+-----------------------------------------------------
+Only jobs having status as Holding can be moved. It can be done through UI of Apex Flex queue or we can use Apex Flex Queue Methods
+Boolean isSuccess = System.FlexQueue.moveBeforeJob(jobToMoveId, jobInQueueId);
+
+
+
+
+
+
+
+
+
+
+
+

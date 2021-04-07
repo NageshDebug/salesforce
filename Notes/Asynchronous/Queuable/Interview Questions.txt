@@ -1,0 +1,115 @@
+1. Mixed DML error
+2. Chaining
+    Only one job can be chained at a time, i.e. only one child job from the same Queueable job.
+	With chaining, you can start only one job from an already running job. That means there can be only one child job for a parent job. Staring multiple jobs from an already running job is not possible.
+	
+	There is no depth limit in terms of how deep you can chain jobs. That means you can start a child job from parent one, and then start another job from child one and continue the process unlimited number of times. For developer and trial org, the maximum stack depth for chained job is 5.
+
+3. Long running process to avoid Governor limits like CPU timeout limit or Heap Limits
+   The default timeout is 10 seconds. A custom timeout can be defined for each callout. The minimum is 1 millisecond and the maximum is 120,000 milliseconds. we can set custom timeouts for Web services or HTTP callouts. The maximum cumulative timeout for callouts by a single Apex transaction is 120 seconds. This time is additive across all callouts invoked by the Apex transaction.
+
+
+Example-1: sequential order of execution
+		   Future methods are not guaranteed to execute in the same order as they are called.If you need this type of functionality then Queueable Apex might be a better solution.
+
+
+           If one job is dependent on other job means here we can chain the dependent job in execute method by system.enqueuejob(new secondJob());
+		   Example: Payment Jobs should be processed before Order Jobs.
+		   
+Example-2: we can't make callout after DML statement
+			making nested callouts: one for getting token and insert or update in the database, then make another callout with that token
+		
+		
+
+Example-3: Sometimes we need to track the failed callouts and re-execute them. may be twice or thrice a day or weekly once.
+           these callouts may be failed due to some network issues or external system may be down or external system not able to give response within 2 minutes.
+
+
+
+Example-4: manipulate around 10000 records
+           job1-> query the records
+		   job2-> manipulate the records
+		              or 
+				  sync the records with external database through callout
+
+
+Example-5: avoid record locking
+			job1-> process parent records
+            job2-> process child records
+
+Note: we can solve the above problems with batch job too... but queuable jobs are lightweight than batch jobs
+       whenever we need to work on minimal records, it is always good to prefer queuable jobs
+	   
+	   
+
+Future vs Queuable
+-------------------
+1. we can't execute future method from Apex Batch Job and vice versa
+   but can execute queuable jobs from Apex Batch Job and vice versa
+   
+2. we can't abort the future methods execution but we can abort the queuable job using System.enqueueJob()
+
+3. we can't monitoring the progress of the Future methods where as we can easily monitor Queuable Job progress, either through the Salesforce UI in the Apex Jobs page or by querying the record using   AsyncApexJob object
+
+4. Reason of Objects cannot be passed as arguments to future method because the object can change between the time you call the method and the time that it actually executes. Future methods run when system resources become available. When a future method executed it may have old object value, which can cause all sorts of bad things to happen.
+
+   This is not the case with Queuable Job.
+   
+5. The getContent() and getContentAsPDF() methods can’t be used in methods with the future annotation.
+   The getContentAsPDF() methods can use in Queueable Apex.
+
+6. Future methods are not guaranteed to execute in the same order as they are called. When using future methods, it’s also possible that two future methods could run concurrently, which could result in record locking.
+
+Note: Use batch apex if the number future method invocation is reasonably large. Avoid using a large number of future methods.
+ 
+ 
+When will we use future methods instead of Queueable?
+-----------------------------------------------------
+You use future methods instead of queueable is when your functionality is sometimes executed synchronously, and sometimes asynchronously. It’s much easier to refactor a method in this manner than converting to a queueable class. This is handy when you discover that part of your existing code needs to be moved to async execution. You can simply create a similar future method that wraps your synchronous method.
+
+
+Why we are using Queueable Apex instead of Batch Apex:
+--------------------------------------------------------
+1. Only 5 concurrent batch can run at a time but in Queueable Apex you can add up to 50 jobs to the queue with System.enqueueJob in a single transaction.
+2. Execution may be delayed based on server availability in batch apex.
+3. @future methods are not allowed in batch apex.
+4. Can’t use getContent/getContentAsPDF methods in batch apex.
+5. More control on jobs in Queueable Apex.
+
+
+Interview Question-1:
+When to use batch apex instead of Queueable Apex?
+	Only you should use Batch Apex if you have more than one batch of records. If you don’t have enough records to run more than one batch, you should use Queueable Apex.
+																(or)
+	Use batch apex if the number future method or Queuable jobs invocation is reasonably large. Avoid using a large number of future methods.
+
+
+Interview Question-2:
+I have a use case to call more than one Queueable Jobs from a Batch apex, how can I achieve it?
+-----------------------------------------------------------------------------------------------
+Since we can’t call more than one Queueable Job from each execution Context, We can go for scheduling the Queueable Jobs or publish multiple jobs as multiple platform events.
+
+The approach is we need to first check how many queueable jobs are added in the queue in the current transaction by making use of Limits class. If the number has reached the limit, then call a schedulable class and enqueue the queueable class from the execute method of a schedulable class.
+
+
+Note: 
+	1. When chaining jobs, you can add only one job from an executing job with System.enqueueJob.
+	2. Cannot have more than 1 job in the chain that does callouts.
+
+
+Interview Question-3
+If I have written more than one System.enqueueJob call, what will happen?
+---------------------------------------------------------------------------
+System will throw LimitException stating “Too many queueable jobs added to the queue: N”
+
+
+Interview Question-4
+How many numbers of jobs, I can queue using System.enqueueJob() at a time?
+--------------------------------------------------------------------------
+You can add up to 50 jobs to the queue with System.enqueueJob in a single transaction in Synchronous apex. In asynchronous transactions, you can add only one job to the queue.
+
+
+Interview Question-5
+I have 200 records to be processed using Queueable Apex, How Can I divide the execution Context for every 100 records?
+----------------------------------------------------------------------------------------------------------------------
+Similar to future jobs, queueable jobs don’t process batches, so you can’t divide the execution Context. It will process all 200 records, in a single execution Context

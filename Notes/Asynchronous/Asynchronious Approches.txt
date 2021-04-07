@@ -1,0 +1,23 @@
+OutOfBox
+---------
+1. Scheduled Reports
+2. Dashboard refreshes
+3. Parallel sharing rule recalculation (is also run if you click the Recalculate button on the Sharing Settings or Defer Sharing Calculations pages).
+4. Time based workflow rules and Approval process
+5. Scheduled Actions through Process builder
+6. Scheduled flows through Flow Builder
+7. Data Export Service is helpful for scheduling weekly or monthly exports of all records belonging to a selected objects.
+8. Mass Transfer Approval requests, Mass Delete Records, Mass Update Address, Mass Update Opportunity opportunity records etc
+9. Run All Tests from Developer Console
+
+
+
+Development
+------------
+1. Asynchronous Apex (@future Apex, batch Apex, queueable Apex, scheduled Apex)
+2. Bulk API jobs, Metadata API, chatter API (images, files process asynchronously), Tooling API helps to run all tests asynchronously
+3. Continuous Pattern (make long running callouts from VF or lightning components)
+4. Async SOQL Queries 
+5. Streaming API (Generic Events, Push Topics, Platform Events, Change Data Capture events)
+6. Action poller in visualforce 
+	
