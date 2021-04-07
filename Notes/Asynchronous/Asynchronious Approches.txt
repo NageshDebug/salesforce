@@ -22,4 +22,10 @@ Development
 6. Action poller in visualforce 
 7. JavaScript Remoting (Remote Actions)
 
+
+Hidden Jobs
+-----------
+Summary Field Recalculation: Whenever the field definition is changed, Depends on the calculation option selected, A background job with Type ‘Summary Field Recalculation’ will be started. 
+This job can take a minute to a week depends on the volumes of data you have the organizations.
+
 	
