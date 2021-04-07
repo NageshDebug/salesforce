@@ -21,6 +21,7 @@ Development
 5. Streaming API (Generic Events, Push Topics, Platform Events, Change Data Capture events)
 6. Action poller in visualforce 
 7. JavaScript Remoting (Remote Actions)
+8. Outbound Messages
 
 
 Hidden Jobs
