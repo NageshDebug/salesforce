@@ -1,0 +1,18 @@
+Benefits
+---------
+Upgrade from Page Layouts : Place fields and sections wherever you want (and even on separate tabs)
+Dynamic Layouts : Use visibility rules to show and hide fields and sections  based on the criteria you defined.
+Simpler Layout Management : Manage the fields and sections on your pages in the Lightning App Builder without touching the page layout editor
+Reduce Page Layouts : Reduce the number of page layouts you need with component visibility rules
+Single Assignment Model :Use single assignment model for the Lightning page instead of dual model of assigning a Lightning page & a page layout
+Improve page performance: Place fields and sections into accordion components which significantly improve page load times. Take advantage of a single assignment model for the Lightning page instead of dual model of assigning a Lightning page and the page layout.
+Manage the fields and sections on pages in the Lightning App Builder without touching the page layout editor.
+
+Limitations
+-----------
+Currently, Dynamic Forms support only custom objects record pages.For standard objects, you would still have to continue with page layout editor to update/add fields on object page layouts.
+The new Field Section & the Field components are not supported on mobile. So, you will need to add a new Record Detail – Mobile component.
+Existing page layouts still manage the related lists.
+We can add up to 100 fields per column in a Field Section component.
+Dynamic Forms aren't available on record pages that use pinned-region or custom page templates.
+The component “Field section” is not mobile supported. Any migrated page will automatically have the setting for showing the detail pages on mobile-enabled but you would have to manually enable it for new pages.
