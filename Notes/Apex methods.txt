@@ -123,7 +123,7 @@ public class OpportunitiesServiceTest {
        System.assertEquals(50, createOpportunity(60).Discount__c);
    }
 }
-----------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 @RestResource(urlMapping=’/Account/*’)
 global with sharing class MyRestResource {
     @HttpGet
